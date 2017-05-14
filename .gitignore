@@ -1,0 +1,8 @@
+# Ignore
+/.vs
+./WebApi/obj
+./WebApi/Properties/PublishProfiles
+./DataAccessLayer/obj
+./BusinessAccessLayer/obj
+./Consumer/obj
+./CrossCutting/obj
