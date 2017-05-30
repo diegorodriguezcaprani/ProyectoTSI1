@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Entities\Evento.cs" />
     <Compile Include="Entities\EventoSubscripcion.cs" />
+    <Compile Include="Entities\ListEventos.cs" />
     <Compile Include="Entities\Sensores.cs" />
     <Compile Include="Entities\Subscripcion.cs" />
     <Compile Include="Entities\TipoSensor.cs" />
