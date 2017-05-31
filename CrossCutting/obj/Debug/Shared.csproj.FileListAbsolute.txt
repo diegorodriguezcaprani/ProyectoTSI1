@@ -1,0 +1,5 @@
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\CrossCutting\bin\Debug\Shared.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\CrossCutting\bin\Debug\Shared.pdb
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\CrossCutting\obj\Debug\Shared.csprojResolveAssemblyReference.cache
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\CrossCutting\obj\Debug\Shared.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\CrossCutting\obj\Debug\Shared.pdb

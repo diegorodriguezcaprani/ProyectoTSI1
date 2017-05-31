@@ -1,0 +1,15 @@
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll.config
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\EntityFramework.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\Shared.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\Shared.pdb
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll.config
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\EntityFramework.xml
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csprojResolveAssemblyReference.cache
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb

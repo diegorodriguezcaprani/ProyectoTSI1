@@ -92,6 +92,16 @@ namespace BusinessLogicLayer
             return _dal.GetValor(id);
         }
 
+        public List<Valores> GetValoresDeSensor(int idSensor)
+        {
+            return _dal.GetValoresDeSensor(idSensor);
+        }
+
+        public List<Valores> GetValoresDeSensorConFecha(int idSensor, String fecha)
+        {
+            return _dal.GetValoresDeSensorConFecha(idSensor, fecha);
+        }
+
         public void AddEvento(Evento ev)
         {
             _dal.AddEvento(ev);

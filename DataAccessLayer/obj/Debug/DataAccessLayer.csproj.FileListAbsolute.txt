@@ -1,0 +1,12 @@
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\DataAccessLayer.dll.config
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\EntityFramework.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\Shared.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\Shared.pdb
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\EntityFramework.xml
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\obj\Debug\DataAccessLayer.csprojResolveAssemblyReference.cache
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Users\notebook\Desktop\TSI1\ProyectoTSI1\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
