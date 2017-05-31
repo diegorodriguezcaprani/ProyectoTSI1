@@ -26,6 +26,8 @@ namespace DataAccessLayer
         void UpdateValor(Valores val);
         List<Valores> GetAllValores();
         Valores GetValor(int id);
+        List<Valores> GetValoresDeSensor(int idSensor);
+        List<Valores> GetValoresDeSensorConFecha(int idSensor, String fecha);
 
         void AddEvento(Evento ev);
         void AddEventoComplejo(EventoComplejo ev);

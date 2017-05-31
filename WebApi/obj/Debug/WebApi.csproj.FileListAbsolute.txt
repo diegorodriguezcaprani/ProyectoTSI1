@@ -1,1 +1,0 @@
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\TSI-Proyecto\WebApi\obj\Debug\WebApi.csprojResolveAssemblyReference.cache

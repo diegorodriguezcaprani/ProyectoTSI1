@@ -261,6 +261,58 @@ namespace DataAccessLayer
             }
         }
 
+        public List<Valores> GetValoresDeSensor(int idSensor)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                List<Valores> valores = new List<Valores>();
+                var valor = (from v in db_context.Valores
+                             where v.Id_Sensor == idSensor
+                             select v);
+                foreach (Model.Valores v in valor)
+                {
+                    Valores val = new Valores()
+                    {
+                        Id = v.Id,
+                        Id_Sensor = v.Id_Sensor,
+                        Valor_ = v.Valor,
+                        Fecha = v.Fecha
+                    };
+
+                    valores.Add(val);
+                }
+                return valores;
+            }
+
+        }
+
+        public List<Valores> GetValoresDeSensorConFecha(int idSensor, String fecha)
+        {
+            DateTime dt = Convert.ToDateTime(fecha);
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                List<Valores> valores = new List<Valores>();
+                var valor = (from v in db_context.Valores
+                             where v.Id_Sensor == idSensor
+                             where v.Fecha == dt
+                             select v);
+                foreach (Model.Valores v in valor)
+                {
+                    Valores val = new Valores()
+                    {
+                        Id = v.Id,
+                        Id_Sensor = v.Id_Sensor,
+                        Valor_ = v.Valor,
+                        Fecha = v.Fecha
+                    };
+
+                    valores.Add(val);
+                }
+                return valores;
+            }
+
+        }
+
         public void AddEvento(Evento ev)
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
