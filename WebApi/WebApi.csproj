@@ -142,6 +142,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EventosController.cs" />
     <Compile Include="Controllers\PusherController.cs" />
+    <Compile Include="Controllers\RelacionesEventosController.cs" />
     <Compile Include="Controllers\SensoresController.cs" />
     <Compile Include="Controllers\SubscripcionesController.cs" />
     <Compile Include="Controllers\TiposController.cs" />

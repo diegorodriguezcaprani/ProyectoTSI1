@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\Model\Model.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\Model\Model.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

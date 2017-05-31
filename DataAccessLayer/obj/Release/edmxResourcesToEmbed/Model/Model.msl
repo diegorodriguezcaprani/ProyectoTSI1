@@ -13,6 +13,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="EventoRelacion">
+      <EntityTypeMapping TypeName="DBTSI1Model.EventoRelacion">
+        <MappingFragment StoreEntitySet="EventoRelacion">
+          <ScalarProperty Name="EvPadreId" ColumnName="EvPadreId" />
+          <ScalarProperty Name="EvHijoId" ColumnName="EvHijoId" />
+          <ScalarProperty Name="Activado" ColumnName="Activado" />
+          <ScalarProperty Name="Operador" ColumnName="Operador" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="EventoSubscripcion">
       <EntityTypeMapping TypeName="DBTSI1Model.EventoSubscripcion">
         <MappingFragment StoreEntitySet="EventoSubscripcion">

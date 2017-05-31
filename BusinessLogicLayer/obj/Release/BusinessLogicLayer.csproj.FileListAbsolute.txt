@@ -13,3 +13,18 @@ C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\BusinessLogi
 C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\BusinessLogicLayer\bin\Release\BusinessLogicLayer.dll.config
 C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\BusinessLogicLayer\bin\Release\EntityFramework.SqlServer.dll
 C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\BusinessLogicLayer\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\obj\Release\BusinessLogicLayer.csprojResolveAssemblyReference.cache
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\obj\Release\BusinessLogicLayer.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\obj\Release\BusinessLogicLayer.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\BusinessLogicLayer.dll.config
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\BusinessLogicLayer.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\BusinessLogicLayer.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\DataAccessLayer.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\EntityFramework.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\Shared.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\Shared.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\DataAccessLayer.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\DataAccessLayer.dll.config
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\EntityFramework.xml
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\BusinessLogicLayer\bin\Release\EntityFramework.SqlServer.xml

@@ -17,6 +17,8 @@ namespace DataAccessLayer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Evento()
         {
+            this.EventoRelacion = new HashSet<EventoRelacion>();
+            this.EventoRelacion1 = new HashSet<EventoRelacion>();
             this.EventoSubscripcion = new HashSet<EventoSubscripcion>();
         }
     
@@ -27,6 +29,10 @@ namespace DataAccessLayer.Model
         public string Operador { get; set; }
         public string TipoDato { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventoRelacion> EventoRelacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EventoRelacion> EventoRelacion1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventoSubscripcion> EventoSubscripcion { get; set; }
     }

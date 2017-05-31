@@ -28,6 +28,7 @@ namespace DataAccessLayer
         Valores GetValor(int id);
 
         void AddEvento(Evento ev);
+        void AddEventoComplejo(EventoComplejo ev);
         void DeleteEvento(int id);
         void UpdateEvento(Evento ev);
         List<Evento> GetAllEventos();
@@ -50,5 +51,10 @@ namespace DataAccessLayer
         void UpdateSubscripcion(Subscripcion sub);
         List<Subscripcion> GetAllSubscripciones();
         Subscripcion GetSubscripcion(int id);
+
+        void AddRelacionEvento(EventoRelacion sub);
+        void DeleteRelacionEvento(int idev1, int idev2);
+        void UpdateRelacionEvento(EventoRelacion sub);
+        List<EventoRelacion> GetAllRelacionesEventos();
     }
 }

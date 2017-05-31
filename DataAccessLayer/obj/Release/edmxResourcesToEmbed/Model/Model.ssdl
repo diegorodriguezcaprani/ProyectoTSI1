@@ -6,10 +6,20 @@
     </Key>
     <Property Name="EventoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ChannelName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ValorLimite" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ChannelName" Type="nvarchar(max)" />
+    <Property Name="ValorLimite" Type="nvarchar(max)" />
     <Property Name="Operador" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="TipoDato" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TipoDato" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="EventoRelacion">
+    <Key>
+      <PropertyRef Name="EvPadreId" />
+      <PropertyRef Name="EvHijoId" />
+    </Key>
+    <Property Name="EvPadreId" Type="int" Nullable="false" />
+    <Property Name="EvHijoId" Type="int" Nullable="false" />
+    <Property Name="Activado" Type="bit" Nullable="false" />
+    <Property Name="Operador" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="EventoSubscripcion">
     <Key>
@@ -64,6 +74,30 @@
     <Property Name="ZonaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <Association Name="FK__EventoRel__EvHij__5EBF139D">
+    <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+    <End Role="EventoRelacion" Type="Self.EventoRelacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="EventoId" />
+      </Principal>
+      <Dependent Role="EventoRelacion">
+        <PropertyRef Name="EvHijoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EventoRel__EvPad__5DCAEF64">
+    <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+    <End Role="EventoRelacion" Type="Self.EventoRelacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="EventoId" />
+      </Principal>
+      <Dependent Role="EventoRelacion">
+        <PropertyRef Name="EvPadreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__EventoSub__Event__59063A47">
     <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
     <End Role="EventoSubscripcion" Type="Self.EventoSubscripcion" Multiplicity="*" />
@@ -126,12 +160,21 @@
   </Association>
   <EntityContainer Name="DBTSI1ModelStoreContainer">
     <EntitySet Name="Evento" EntityType="Self.Evento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EventoRelacion" EntityType="Self.EventoRelacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EventoSubscripcion" EntityType="Self.EventoSubscripcion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sensores" EntityType="Self.Sensores" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tipo_Sensor" EntityType="Self.Tipo_Sensor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Valores" EntityType="Self.Valores" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Zona" EntityType="Self.Zona" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__EventoRel__EvHij__5EBF139D" Association="Self.FK__EventoRel__EvHij__5EBF139D">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="EventoRelacion" EntitySet="EventoRelacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EventoRel__EvPad__5DCAEF64" Association="Self.FK__EventoRel__EvPad__5DCAEF64">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="EventoRelacion" EntitySet="EventoRelacion" />
+    </AssociationSet>
     <AssociationSet Name="FK__EventoSub__Event__59063A47" Association="Self.FK__EventoSub__Event__59063A47">
       <End Role="Evento" EntitySet="Evento" />
       <End Role="EventoSubscripcion" EntitySet="EventoSubscripcion" />

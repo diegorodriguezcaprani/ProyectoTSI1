@@ -279,6 +279,53 @@ namespace DataAccessLayer
             }
         }
 
+        private void AddEvento2(string name, string operador)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                Model.Evento evento = new Model.Evento()
+                {
+                    Nombre = name,
+                    Operador = operador
+                };
+
+                db_context.Evento.Add(evento);
+                db_context.SaveChanges();
+            }
+        }
+
+        public void AddEventoComplejo(EventoComplejo ev)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                Model.Evento evento = new Model.Evento()
+                {
+                    Nombre = ev.Nombre,
+                    Operador = ev.Operador,
+                    //ChannelName = "channel",
+                    //ValorLimite = "20",
+                    //TipoDato = "tipodato"
+                };
+                db_context.Evento.Add(evento);
+                
+                //var e = db_context.Evento.Find(ev.Nombre);
+
+                foreach (Evento even in ev.Hijos) {
+                    Model.EventoRelacion relev = new Model.EventoRelacion()
+                    {
+                        //Tengo que obtener el nro de id del padre (el que agrego arriba)
+                        EvPadreId = 10,
+                        EvHijoId = even.EventoId,
+                        Operador = ev.Operador,
+                        Activado = false
+                    };
+                    db_context.EventoRelacion.Add(relev);
+                }
+
+                db_context.SaveChanges();
+            }
+        }
+
         public void DeleteEvento(int id)
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
@@ -602,6 +649,72 @@ namespace DataAccessLayer
                 };
 
                 return subscripcion;
+            }
+        }
+
+        public void AddRelacionEvento(EventoRelacion sub)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                Model.EventoRelacion ev_rel = new Model.EventoRelacion()
+                {
+                    EvPadreId = sub.EvPadreId,
+                    EvHijoId = sub.EvHijoId,
+                    Activado = sub.Activado,
+                    Operador = sub.Operador
+                };
+
+                db_context.EventoRelacion.Add(ev_rel);
+                db_context.SaveChanges();
+            }
+        }
+
+        public void DeleteRelacionEvento(int idev1, int idev2)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                var rel = (from e in db_context.EventoRelacion
+                           where e.EvPadreId == idev1 && e.EvHijoId == idev2
+                           select e).First();
+                db_context.EventoRelacion.Remove(rel);
+                db_context.SaveChanges();
+            }
+        }
+
+        public void UpdateRelacionEvento(EventoRelacion evrel)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                Model.EventoRelacion rel = db_context.EventoRelacion.Find(evrel.EvPadreId,evrel.EvHijoId);
+                rel.Activado = evrel.Activado;
+                rel.Operador = evrel.Operador;
+
+                db_context.SaveChanges();
+            }
+        }
+
+        public List<EventoRelacion> GetAllRelacionesEventos()
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                List<EventoRelacion> subscripciones = new List<EventoRelacion>();
+                var relev_db = from r in db_context.EventoRelacion
+                              select r;
+
+                foreach (Model.EventoRelacion evrel in relev_db)
+                {
+                    EventoRelacion relacion_ev = new EventoRelacion()
+                    {
+                        EvPadreId = evrel.EvPadreId,
+                        EvHijoId = evrel.EvHijoId,
+                        Activado = evrel.Activado,
+                        Operador = evrel.Operador
+                    };
+
+                    subscripciones.Add(relacion_ev);
+                };
+
+                return subscripciones;
             }
         }
     }

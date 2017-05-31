@@ -6,11 +6,25 @@
     </Key>
     <Property Name="EventoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="ValorLimite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ValorLimite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Operador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="TipoDato" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TipoDato" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="EventoRelacion" Relationship="Self.FK__EventoRel__EvHij__5EBF139D" FromRole="Evento" ToRole="EventoRelacion" />
+    <NavigationProperty Name="EventoRelacion1" Relationship="Self.FK__EventoRel__EvPad__5DCAEF64" FromRole="Evento" ToRole="EventoRelacion" />
     <NavigationProperty Name="EventoSubscripcion" Relationship="Self.FK__EventoSub__Event__59063A47" FromRole="Evento" ToRole="EventoSubscripcion" />
+  </EntityType>
+  <EntityType Name="EventoRelacion">
+    <Key>
+      <PropertyRef Name="EvPadreId" />
+      <PropertyRef Name="EvHijoId" />
+    </Key>
+    <Property Name="EvPadreId" Type="Int32" Nullable="false" />
+    <Property Name="EvHijoId" Type="Int32" Nullable="false" />
+    <Property Name="Activado" Type="Boolean" Nullable="false" />
+    <Property Name="Operador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Evento" Relationship="Self.FK__EventoRel__EvHij__5EBF139D" FromRole="EventoRelacion" ToRole="Evento" />
+    <NavigationProperty Name="Evento1" Relationship="Self.FK__EventoRel__EvPad__5DCAEF64" FromRole="EventoRelacion" ToRole="Evento" />
   </EntityType>
   <EntityType Name="EventoSubscripcion">
     <Key>
@@ -74,6 +88,30 @@
     <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="EventoSubscripcion" Relationship="Self.FK__EventoSub__ZonaI__59FA5E80" FromRole="Zona" ToRole="EventoSubscripcion" />
   </EntityType>
+  <Association Name="FK__EventoRel__EvHij__5EBF139D">
+    <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+    <End Role="EventoRelacion" Type="Self.EventoRelacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="EventoId" />
+      </Principal>
+      <Dependent Role="EventoRelacion">
+        <PropertyRef Name="EvHijoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EventoRel__EvPad__5DCAEF64">
+    <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+    <End Role="EventoRelacion" Type="Self.EventoRelacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Evento">
+        <PropertyRef Name="EventoId" />
+      </Principal>
+      <Dependent Role="EventoRelacion">
+        <PropertyRef Name="EvPadreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__EventoSub__Event__59063A47">
     <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
     <End Role="EventoSubscripcion" Type="Self.EventoSubscripcion" Multiplicity="*" />
@@ -136,12 +174,21 @@
   </Association>
   <EntityContainer Name="DBTSI1Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Evento" EntityType="Self.Evento" />
+    <EntitySet Name="EventoRelacion" EntityType="Self.EventoRelacion" />
     <EntitySet Name="EventoSubscripcion" EntityType="Self.EventoSubscripcion" />
     <EntitySet Name="Sensores" EntityType="Self.Sensores" />
     <EntitySet Name="Tipo_Sensor" EntityType="Self.Tipo_Sensor" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" />
     <EntitySet Name="Valores" EntityType="Self.Valores" />
     <EntitySet Name="Zona" EntityType="Self.Zona" />
+    <AssociationSet Name="FK__EventoRel__EvHij__5EBF139D" Association="Self.FK__EventoRel__EvHij__5EBF139D">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="EventoRelacion" EntitySet="EventoRelacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EventoRel__EvPad__5DCAEF64" Association="Self.FK__EventoRel__EvPad__5DCAEF64">
+      <End Role="Evento" EntitySet="Evento" />
+      <End Role="EventoRelacion" EntitySet="EventoRelacion" />
+    </AssociationSet>
     <AssociationSet Name="FK__EventoSub__Event__59063A47" Association="Self.FK__EventoSub__Event__59063A47">
       <End Role="Evento" EntitySet="Evento" />
       <End Role="EventoSubscripcion" EntitySet="EventoSubscripcion" />

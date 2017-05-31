@@ -97,6 +97,11 @@ namespace BusinessLogicLayer
             _dal.AddEvento(ev);
         }
 
+        public void AddEventoComplejo(EventoComplejo ev)
+        {
+            _dal.AddEventoComplejo(ev);
+        }
+
         public void DeleteEvento(int id)
         {
             _dal.DeleteEvento(id);
@@ -191,5 +196,26 @@ namespace BusinessLogicLayer
         {
             return _dal.GetSubscripcion(id);
         }
+
+        public void AddRelacionEvento(EventoRelacion rel)
+        {
+            _dal.AddRelacionEvento(rel);
+        }
+
+        public void DeleteRelacionEvento(int idev1,int idev2)
+        {
+            _dal.DeleteRelacionEvento(idev1,idev2);
+        }
+
+        public void UpdateRelacionEvento(EventoRelacion rel)
+        {
+            _dal.UpdateRelacionEvento(rel);
+        }
+
+        public List<EventoRelacion> GetAllRelacionesEventos()
+        {
+            return _dal.GetAllRelacionesEventos();
+        }
+
     }
 }

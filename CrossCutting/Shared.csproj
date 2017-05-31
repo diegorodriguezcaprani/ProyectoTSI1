@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Evento.cs" />
+    <Compile Include="Entities\EventoComplejo.cs" />
+    <Compile Include="Entities\EventoRelacion.cs" />
     <Compile Include="Entities\EventoSubscripcion.cs" />
     <Compile Include="Entities\ListEventos.cs" />
     <Compile Include="Entities\Sensores.cs" />
