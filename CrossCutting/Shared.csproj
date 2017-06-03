@@ -44,12 +44,11 @@
     <Compile Include="Entities\EventoRelacion.cs" />
     <Compile Include="Entities\EventoSubscripcion.cs" />
     <Compile Include="Entities\ListEventos.cs" />
+    <Compile Include="Entities\ParamTask.cs" />
     <Compile Include="Entities\Sensores.cs" />
-    <Compile Include="Entities\Subscripcion.cs" />
     <Compile Include="Entities\TipoSensor.cs" />
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Entities\Valores.cs" />
-    <Compile Include="Entities\Zona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

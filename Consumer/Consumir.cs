@@ -16,13 +16,15 @@ namespace Consumer
 {
     class Consumir
     {
-        private static void Notificar() {
+        private static void Notificar(string nchannel, string nevento, string nmensaje) {
+            var postString = "{ channel:"+nchannel+", evento:"+nevento+", mensaje:"+nmensaje+"}";
+            byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
             HttpWebRequest request = WebRequest.Create("http://proyectotsi1.azurewebsites.net/api/Pusher") as HttpWebRequest;
             string responseText;
             //var data = Encoding.ASCII.GetBytes(responseText);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            //request.ContentLength = data.Length;
+            request.ContentLength = data.Length;
             using (var stream = request.GetRequestStream())
             {
                 //stream.Write(data, 0, data.Length);
@@ -35,12 +37,56 @@ namespace Consumer
             Console.WriteLine("Notification success");
         }
 
-        private static void ProcedimientoHilo(object time)
+        private static void ProcedimientoHilo(object param)
         {
+            ParamTask parametro = (ParamTask)param;
+            int time = parametro.Frecuencia;
+            string tipo = parametro.Tipo_dato;
+            int tipo_dato;
+            try
+            {
+                if ((tipo == "string") || (tipo == "String"))
+                {
+                    tipo_dato = 0;
+                }
+                else if ((tipo == "int") || (tipo == "Int") || (tipo == "float") || (tipo == "Float"))
+                {
+                    tipo_dato = 1;
+                }
+                else if ((tipo == "img") || (tipo == "Img"))
+                {
+                    tipo_dato = 2;
+                }
+                else
+                {
+                    tipo_dato = -1;
+                    throw new ArgumentException("Tipo de Dato invalido");
+                }
+            }
+            catch (ArgumentException e){
+                throw;
+            }
+
+            //Me creo sensor de dicho tipo
+            var postString = "{ id:"+tipo_dato+"}";
+            byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
+            HttpWebRequest requestSensor = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores") as HttpWebRequest;
+            string responseTxt;
+            requestSensor.Method = "POST";
+            requestSensor.ContentType = "application/x-www-form-urlencoded";
+            requestSensor.ContentLength = data.Length;
+            var stream = requestSensor.GetRequestStream();
+            stream.Write(data, 0, data.Length);
+            HttpWebResponse responseSensor = (HttpWebResponse)requestSensor.GetResponse();
+            responseTxt = new StreamReader(responseSensor.GetResponseStream()).ReadToEnd();
+            string id_sensor = responseTxt;
+            Console.WriteLine("El id del sensor es: " + id_sensor);
+
+            //Comienzo a consultar el sensor creado
             while (true)
             {
                 //Consumo de sensor
-                HttpWebRequest request = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores") as HttpWebRequest;
+                HttpWebRequest request = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores"+"/"+id_sensor) as HttpWebRequest;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 var encoding = ASCIIEncoding.UTF8;
                 string responseText;
@@ -90,7 +136,7 @@ namespace Consumer
                     if (cumple_evento)
                     {
                         Console.WriteLine("Se cumple el evento " + obj.Nombre);
-                        Notificar();
+                        Notificar("my-channel","Notificacion-Evento","Mensaje de notificacion.");
                     }
 
                 }
@@ -124,14 +170,22 @@ namespace Consumer
 
             foreach (var obj in misSensores)
             {
+                string tipo_dato;
                 int frec;
+                ParamTask param;
                 foreach (var tipo in misTipos)
                 {
                     if (tipo.Id == obj.Tipo)
                     {
+                        tipo_dato = (string)tipo.TipoDato;
                         frec = (int)tipo.Frecuencia;
                         Console.WriteLine("Frecuencia: " + frec);
-                        Task task = new Task(ProcedimientoHilo, frec);
+                        param = new ParamTask()
+                        {
+                            Frecuencia = frec,
+                            Tipo_dato = tipo_dato
+                        };
+                        Task task = new Task(ProcedimientoHilo, param);
                         task.Start();
                     }
                 }

@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cccaa8cdde0d48fcb6cabf89d3c00fe1" Name="Diagram1">
-        <EntityTypeShape EntityType="DBTSI1Model.Evento" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTSI1Model.EventoRelacion" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTSI1Model.EventoSubscripcion" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTSI1Model.Sensores" Width="1.5" PointX="8" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTSI1Model.Tipo_Sensor" Width="1.5" PointX="5.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTSI1Model.Usuario" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTSI1Model.Valores" Width="1.5" PointX="10.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTSI1Model.Zona" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+      <Diagram DiagramId="7de33ee42e8448329411f588465ddb90" Name="Diagram1">
+        <EntityTypeShape EntityType="DBTSI1Model.Evento" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTSI1Model.EventoRelacion" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTSI1Model.EventoSubscripcion" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTSI1Model.HistoricoEvento" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTSI1Model.Sensores" Width="1.5" PointX="8" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTSI1Model.Tipo_Sensor" Width="1.5" PointX="5.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTSI1Model.Usuario" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBTSI1Model.Valores" Width="1.5" PointX="10.25" PointY="9.625" IsExpanded="true" />
         <AssociationConnector Association="DBTSI1Model.FK__EventoRel__EvHij__5EBF139D" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__EventoRel__EvPad__5DCAEF64" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__EventoSub__Event__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTSI1Model.FK__Historico__Event__6477ECF3" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__EventoSub__Usuar__5AEE82B9" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTSI1Model.FK__EventoSub__ZonaI__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__Sensores__Tipo__4CA06362" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTSI1Model.FK__Valores__Id_Sens__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTSI1Model.FK__Valores__SensorI__619B8048" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

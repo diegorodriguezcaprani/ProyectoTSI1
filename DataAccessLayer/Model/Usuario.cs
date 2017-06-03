@@ -24,6 +24,7 @@ namespace DataAccessLayer.Model
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string TokenId { get; set; }
+        public string ChannelName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventoSubscripcion> EventoSubscripcion { get; set; }

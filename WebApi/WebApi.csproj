@@ -149,7 +149,6 @@
     <Compile Include="Controllers\TiposController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\ValoresController.cs" />
-    <Compile Include="Controllers\ZonasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

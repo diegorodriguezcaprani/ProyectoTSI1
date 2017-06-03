@@ -15,7 +15,7 @@ namespace DataAccessLayer.Model
     public partial class Valores
     {
         public int Id { get; set; }
-        public int Id_Sensor { get; set; }
+        public int SensorId { get; set; }
         public string Valor { get; set; }
         public System.DateTime Fecha { get; set; }
     

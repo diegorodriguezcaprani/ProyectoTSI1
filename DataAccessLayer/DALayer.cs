@@ -9,6 +9,15 @@ namespace DataAccessLayer
 {
     public class DALayer : IDALayer
     {
+        private int maxID()
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                int max = db_context.Evento.Max(e => e.EventoId);
+                return max;
+            }
+        }
+
         public void AddTipo(TipoSensor tipo)
         {
             Model.Tipo_Sensor tipo_sensor;
@@ -189,7 +198,7 @@ namespace DataAccessLayer
             {
                 Model.Valores v = new Model.Valores()
                 {
-                    Id_Sensor = val.Id_Sensor,
+                    SensorId = val.Id_Sensor,
                     Valor = val.Valor_,
                     Fecha = val.Fecha
                 };
@@ -231,7 +240,7 @@ namespace DataAccessLayer
                     Valores v = new Valores()
                     {
                         Id = val.Id,
-                        Id_Sensor = val.Id_Sensor,
+                        Id_Sensor = val.SensorId,
                         Valor_ = val.Valor,
                         Fecha = val.Fecha
                     };
@@ -254,7 +263,7 @@ namespace DataAccessLayer
                 return new Valores()
                 {
                     Id = valor.Id,
-                    Id_Sensor = valor.Id_Sensor,
+                    Id_Sensor = valor.SensorId,
                     Valor_ = valor.Valor,
                     Fecha = valor.Fecha
                 };
@@ -267,14 +276,14 @@ namespace DataAccessLayer
             {
                 List<Valores> valores = new List<Valores>();
                 var valor = (from v in db_context.Valores
-                             where v.Id_Sensor == idSensor
+                             where v.SensorId == idSensor
                              select v);
                 foreach (Model.Valores v in valor)
                 {
                     Valores val = new Valores()
                     {
                         Id = v.Id,
-                        Id_Sensor = v.Id_Sensor,
+                        Id_Sensor = v.SensorId,
                         Valor_ = v.Valor,
                         Fecha = v.Fecha
                     };
@@ -293,7 +302,7 @@ namespace DataAccessLayer
             {
                 List<Valores> valores = new List<Valores>();
                 var valor = (from v in db_context.Valores
-                             where v.Id_Sensor == idSensor
+                             where v.SensorId == idSensor
                              where v.Fecha == dt
                              select v);
                 foreach (Model.Valores v in valor)
@@ -301,7 +310,7 @@ namespace DataAccessLayer
                     Valores val = new Valores()
                     {
                         Id = v.Id,
-                        Id_Sensor = v.Id_Sensor,
+                        Id_Sensor = v.SensorId,
                         Valor_ = v.Valor,
                         Fecha = v.Fecha
                     };
@@ -320,25 +329,9 @@ namespace DataAccessLayer
                 Model.Evento evento = new Model.Evento()
                 {
                     Nombre = ev.Nombre,
-                    ChannelName = ev.ChannelName,
                     ValorLimite = ev.ValorLimite,
                     Operador = ev.Operador,
                     TipoDato = ev.TipoDato
-                };
-
-                db_context.Evento.Add(evento);
-                db_context.SaveChanges();
-            }
-        }
-
-        private void AddEvento2(string name, string operador)
-        {
-            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
-            {
-                Model.Evento evento = new Model.Evento()
-                {
-                    Nombre = name,
-                    Operador = operador
                 };
 
                 db_context.Evento.Add(evento);
@@ -359,14 +352,12 @@ namespace DataAccessLayer
                     //TipoDato = "tipodato"
                 };
                 db_context.Evento.Add(evento);
-                
-                //var e = db_context.Evento.Find(ev.Nombre);
 
                 foreach (Evento even in ev.Hijos) {
                     Model.EventoRelacion relev = new Model.EventoRelacion()
                     {
                         //Tengo que obtener el nro de id del padre (el que agrego arriba)
-                        EvPadreId = 10,
+                        EvPadreId = maxID()+1,
                         EvHijoId = even.EventoId,
                         Operador = ev.Operador,
                         Activado = false
@@ -396,7 +387,6 @@ namespace DataAccessLayer
             {
                 Model.Evento evento = db_context.Evento.Find(ev.EventoId);
                 evento.Nombre = ev.Nombre;
-                evento.ChannelName = ev.ChannelName;
                 evento.ValorLimite = ev.ValorLimite;
                 evento.Operador = ev.Operador;
                 evento.TipoDato = ev.TipoDato;
@@ -419,7 +409,6 @@ namespace DataAccessLayer
                     {
                         EventoId = ev.EventoId,
                         Nombre = ev.Nombre,
-                        ChannelName = ev.ChannelName,
                         ValorLimite = ev.ValorLimite,
                         Operador = ev.Operador,
                         TipoDato = ev.TipoDato
@@ -444,91 +433,12 @@ namespace DataAccessLayer
                 {
                     EventoId = ev.EventoId,
                     Nombre = ev.Nombre,
-                    ChannelName = ev.ChannelName,
                     ValorLimite = ev.ValorLimite,
                     Operador = ev.Operador,
                     TipoDato = ev.TipoDato
                 };
 
                 return evento;
-            }
-        }
-
-        public void AddZona(Zona z)
-        {
-            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
-            {
-                Model.Zona zona = new Model.Zona()
-                {
-                    Nombre = z.Nombre
-                };
-
-                db_context.Zona.Add(zona);
-                db_context.SaveChanges();
-            }
-        }
-
-        public void DeleteZona(int id)
-        {
-            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
-            {
-                var zona = (from z in db_context.Zona
-                          where z.ZonaId == id
-                          select z).First();
-                db_context.Zona.Remove(zona);
-                db_context.SaveChanges();
-            }
-        }
-
-        public void UpdateZona(Zona z)
-        {
-            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
-            {
-                Model.Zona zona = db_context.Zona.Find(z.ZonaId);
-                zona.Nombre = z.Nombre;
-
-                db_context.SaveChanges();
-            }
-        }
-
-        public List<Zona> GetAllZonas()
-        {
-            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
-            {
-                List<Zona> zonas = new List<Zona>();
-                var zonas_db = from z in db_context.Zona
-                                 select z;
-
-                foreach (Model.Zona zona in zonas_db)
-                {
-                    Zona z = new Zona()
-                    {
-                        ZonaId = zona.ZonaId,
-                        Nombre = zona.Nombre
-                    };
-
-                    zonas.Add(z);
-                };
-
-                return zonas;
-            }
-        }
-
-        public Zona GetZona(int id)
-        {
-            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
-            {
-                var zo = (from z in db_context.Zona
-                          where z.ZonaId == id
-                          select z).First();
-
-                Zona zona = new Zona()
-                {
-                    ZonaId = zo.ZonaId,
-                    Nombre = zo.Nombre
-                };
-
-                return zona;
             }
         }
 
@@ -540,7 +450,8 @@ namespace DataAccessLayer
                 {
                     Nombre = u.Nombre,
                     Apellido = u.Apellido,
-                    TokenId = u.TokenId
+                    TokenId = u.TokenId,
+                    ChannelName = u.ChannelName
                 };
 
                 db_context.Usuario.Add(usr);
@@ -588,7 +499,8 @@ namespace DataAccessLayer
                         UsuarioId = usr.UsuarioId,
                         Nombre = usr.Nombre,
                         Apellido = usr.Apellido,
-                        TokenId = usr.TokenId
+                        TokenId = usr.TokenId,
+                        ChannelName = usr.ChannelName
                     };
 
                     usuarios.Add(z);
@@ -611,14 +523,15 @@ namespace DataAccessLayer
                     UsuarioId = us.UsuarioId,
                     Nombre = us.Nombre,
                     Apellido = us.Apellido,
-                    TokenId = us.TokenId
+                    TokenId = us.TokenId,
+                    ChannelName = us.ChannelName
                 };
 
                 return zona;
             }
         }
 
-        public void AddSubscripcion(Subscripcion u)
+        public void AddSubscripcion(EventoSubscripcion u)
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
@@ -626,7 +539,9 @@ namespace DataAccessLayer
                 {
                     EventoId = u.EventoId,
                     UsuarioId = u.UsuarioId,
-                    ZonaId = u.ZonaId
+                    Radio = u.Radio,
+                    CentroLatitud = u.CentroLatitud,
+                    CentroLongitud = u.CentroLongitud
                 };
 
                 db_context.EventoSubscripcion.Add(ev_sub);
@@ -646,35 +561,39 @@ namespace DataAccessLayer
             }
         }
 
-        public void UpdateSubscripcion(Subscripcion u)
+        public void UpdateSubscripcion(EventoSubscripcion u)
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
                 Model.EventoSubscripcion sub = db_context.EventoSubscripcion.Find(u.Id);
                 sub.UsuarioId = u.UsuarioId;
-                sub.ZonaId = u.ZonaId;
                 sub.EventoId = u.EventoId;
+                sub.Radio = u.Radio;
+                sub.CentroLongitud = u.CentroLongitud;
+                sub.CentroLatitud = u.CentroLatitud;
 
                 db_context.SaveChanges();
             }
         }
 
-        public List<Subscripcion> GetAllSubscripciones()
+        public List<EventoSubscripcion> GetAllSubscripciones()
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
-                List<Subscripcion> subscripciones = new List<Subscripcion>();
+                List<EventoSubscripcion> subscripciones = new List<EventoSubscripcion>();
                 var subs_db = from s in db_context.EventoSubscripcion
                               select s;
 
                 foreach (Model.EventoSubscripcion subs in subs_db)
                 {
-                    Subscripcion subscripcion = new Subscripcion()
+                    EventoSubscripcion subscripcion = new EventoSubscripcion()
                     {
                         Id = subs.Id,
                         UsuarioId = subs.UsuarioId,
                         EventoId = subs.EventoId,
-                        ZonaId = subs.ZonaId
+                        Radio = subs.Radio,
+                        CentroLatitud = subs.CentroLatitud,
+                        CentroLongitud = subs.CentroLongitud
                     };
 
                     subscripciones.Add(subscripcion);
@@ -684,7 +603,7 @@ namespace DataAccessLayer
             }
         }
 
-        public Subscripcion GetSubscripcion(int id)
+        public EventoSubscripcion GetSubscripcion(int id)
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
@@ -692,12 +611,14 @@ namespace DataAccessLayer
                           where s.Id == id
                           select s).First();
 
-                Subscripcion subscripcion = new Subscripcion()
+                EventoSubscripcion subscripcion = new EventoSubscripcion()
                 {
                     Id = subs.Id,
                     UsuarioId = subs.UsuarioId,
                     EventoId = subs.EventoId,
-                    ZonaId = subs.ZonaId
+                    Radio = subs.Radio,
+                    CentroLongitud = subs.CentroLongitud,
+                    CentroLatitud = subs.CentroLatitud
                 };
 
                 return subscripcion;

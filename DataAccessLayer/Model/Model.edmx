@@ -11,7 +11,6 @@
           </Key>
           <Property Name="EventoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ChannelName" Type="nvarchar(max)" />
           <Property Name="ValorLimite" Type="nvarchar(max)" />
           <Property Name="Operador" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TipoDato" Type="nvarchar(max)" />
@@ -31,9 +30,20 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ZonaId" Type="int" Nullable="false" />
           <Property Name="EventoId" Type="int" Nullable="false" />
           <Property Name="UsuarioId" Type="int" Nullable="false" />
+          <Property Name="Radio" Type="int" Nullable="false" />
+          <Property Name="CentroLatitud" Type="float" Nullable="false" />
+          <Property Name="CentroLongitud" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HistoricoEvento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EventoId" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="ValorCritico" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Sensores">
           <Key>
@@ -62,22 +72,16 @@
           <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Apellido" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TokenId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ChannelName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Valores">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Id_Sensor" Type="int" Nullable="false" />
+          <Property Name="SensorId" Type="int" Nullable="false" />
           <Property Name="Valor" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Zona">
-          <Key>
-            <PropertyRef Name="ZonaId" />
-          </Key>
-          <Property Name="ZonaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK__EventoRel__EvHij__5EBF139D">
           <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
@@ -127,15 +131,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EventoSub__ZonaI__59FA5E80">
-          <End Role="Zona" Type="Self.Zona" Multiplicity="1" />
-          <End Role="EventoSubscripcion" Type="Self.EventoSubscripcion" Multiplicity="*" />
+        <Association Name="FK__Historico__Event__6477ECF3">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="HistoricoEvento" Type="Self.HistoricoEvento" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Zona">
-              <PropertyRef Name="ZonaId" />
+            <Principal Role="Evento">
+              <PropertyRef Name="EventoId" />
             </Principal>
-            <Dependent Role="EventoSubscripcion">
-              <PropertyRef Name="ZonaId" />
+            <Dependent Role="HistoricoEvento">
+              <PropertyRef Name="EventoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -151,7 +155,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Valores__Id_Sens__5070F446">
+        <Association Name="FK__Valores__SensorI__619B8048">
           <End Role="Sensores" Type="Self.Sensores" Multiplicity="1" />
           <End Role="Valores" Type="Self.Valores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -159,7 +163,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Valores">
-              <PropertyRef Name="Id_Sensor" />
+              <PropertyRef Name="SensorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -167,11 +171,11 @@
           <EntitySet Name="Evento" EntityType="Self.Evento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventoRelacion" EntityType="Self.EventoRelacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventoSubscripcion" EntityType="Self.EventoSubscripcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistoricoEvento" EntityType="Self.HistoricoEvento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sensores" EntityType="Self.Sensores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Sensor" EntityType="Self.Tipo_Sensor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Valores" EntityType="Self.Valores" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Zona" EntityType="Self.Zona" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__EventoRel__EvHij__5EBF139D" Association="Self.FK__EventoRel__EvHij__5EBF139D">
             <End Role="Evento" EntitySet="Evento" />
             <End Role="EventoRelacion" EntitySet="EventoRelacion" />
@@ -188,15 +192,15 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="EventoSubscripcion" EntitySet="EventoSubscripcion" />
           </AssociationSet>
-          <AssociationSet Name="FK__EventoSub__ZonaI__59FA5E80" Association="Self.FK__EventoSub__ZonaI__59FA5E80">
-            <End Role="Zona" EntitySet="Zona" />
-            <End Role="EventoSubscripcion" EntitySet="EventoSubscripcion" />
+          <AssociationSet Name="FK__Historico__Event__6477ECF3" Association="Self.FK__Historico__Event__6477ECF3">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="HistoricoEvento" EntitySet="HistoricoEvento" />
           </AssociationSet>
           <AssociationSet Name="FK__Sensores__Tipo__4CA06362" Association="Self.FK__Sensores__Tipo__4CA06362">
             <End Role="Tipo_Sensor" EntitySet="Tipo_Sensor" />
             <End Role="Sensores" EntitySet="Sensores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Valores__Id_Sens__5070F446" Association="Self.FK__Valores__Id_Sens__5070F446">
+          <AssociationSet Name="FK__Valores__SensorI__619B8048" Association="Self.FK__Valores__SensorI__619B8048">
             <End Role="Sensores" EntitySet="Sensores" />
             <End Role="Valores" EntitySet="Valores" />
           </AssociationSet>
@@ -212,13 +216,13 @@
           </Key>
           <Property Name="EventoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ValorLimite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Operador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TipoDato" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EventoRelacion" Relationship="Self.FK__EventoRel__EvHij__5EBF139D" FromRole="Evento" ToRole="EventoRelacion" />
           <NavigationProperty Name="EventoRelacion1" Relationship="Self.FK__EventoRel__EvPad__5DCAEF64" FromRole="Evento" ToRole="EventoRelacion" />
           <NavigationProperty Name="EventoSubscripcion" Relationship="Self.FK__EventoSub__Event__59063A47" FromRole="Evento" ToRole="EventoSubscripcion" />
+          <NavigationProperty Name="HistoricoEvento" Relationship="Self.FK__Historico__Event__6477ECF3" FromRole="Evento" ToRole="HistoricoEvento" />
         </EntityType>
         <EntityType Name="EventoRelacion">
           <Key>
@@ -237,12 +241,23 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ZonaId" Type="Int32" Nullable="false" />
           <Property Name="EventoId" Type="Int32" Nullable="false" />
           <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <Property Name="Radio" Type="Int32" Nullable="false" />
+          <Property Name="CentroLatitud" Type="Double" Nullable="false" />
+          <Property Name="CentroLongitud" Type="Double" Nullable="false" />
           <NavigationProperty Name="Evento" Relationship="Self.FK__EventoSub__Event__59063A47" FromRole="EventoSubscripcion" ToRole="Evento" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__EventoSub__Usuar__5AEE82B9" FromRole="EventoSubscripcion" ToRole="Usuario" />
-          <NavigationProperty Name="Zona" Relationship="Self.FK__EventoSub__ZonaI__59FA5E80" FromRole="EventoSubscripcion" ToRole="Zona" />
+        </EntityType>
+        <EntityType Name="HistoricoEvento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EventoId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValorCritico" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Evento" Relationship="Self.FK__Historico__Event__6477ECF3" FromRole="HistoricoEvento" ToRole="Evento" />
         </EntityType>
         <EntityType Name="Sensores">
           <Key>
@@ -254,7 +269,7 @@
           <Property Name="Latitud" Type="Double" Nullable="false" />
           <Property Name="Longitud" Type="Double" Nullable="false" />
           <NavigationProperty Name="Tipo_Sensor" Relationship="Self.FK__Sensores__Tipo__4CA06362" FromRole="Sensores" ToRole="Tipo_Sensor" />
-          <NavigationProperty Name="Valores" Relationship="Self.FK__Valores__Id_Sens__5070F446" FromRole="Sensores" ToRole="Valores" />
+          <NavigationProperty Name="Valores" Relationship="Self.FK__Valores__SensorI__619B8048" FromRole="Sensores" ToRole="Valores" />
         </EntityType>
         <EntityType Name="Tipo_Sensor">
           <Key>
@@ -274,6 +289,7 @@
           <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Apellido" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TokenId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="EventoSubscripcion" Relationship="Self.FK__EventoSub__Usuar__5AEE82B9" FromRole="Usuario" ToRole="EventoSubscripcion" />
         </EntityType>
         <EntityType Name="Valores">
@@ -281,18 +297,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_Sensor" Type="Int32" Nullable="false" />
+          <Property Name="SensorId" Type="Int32" Nullable="false" />
           <Property Name="Valor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Sensores" Relationship="Self.FK__Valores__Id_Sens__5070F446" FromRole="Valores" ToRole="Sensores" />
-        </EntityType>
-        <EntityType Name="Zona">
-          <Key>
-            <PropertyRef Name="ZonaId" />
-          </Key>
-          <Property Name="ZonaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="EventoSubscripcion" Relationship="Self.FK__EventoSub__ZonaI__59FA5E80" FromRole="Zona" ToRole="EventoSubscripcion" />
+          <NavigationProperty Name="Sensores" Relationship="Self.FK__Valores__SensorI__619B8048" FromRole="Valores" ToRole="Sensores" />
         </EntityType>
         <Association Name="FK__EventoRel__EvHij__5EBF139D">
           <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
@@ -330,6 +338,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Historico__Event__6477ECF3">
+          <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
+          <End Role="HistoricoEvento" Type="Self.HistoricoEvento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento">
+              <PropertyRef Name="EventoId" />
+            </Principal>
+            <Dependent Role="HistoricoEvento">
+              <PropertyRef Name="EventoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__EventoSub__Usuar__5AEE82B9">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="EventoSubscripcion" Type="Self.EventoSubscripcion" Multiplicity="*" />
@@ -339,18 +359,6 @@
             </Principal>
             <Dependent Role="EventoSubscripcion">
               <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__EventoSub__ZonaI__59FA5E80">
-          <End Role="Zona" Type="Self.Zona" Multiplicity="1" />
-          <End Role="EventoSubscripcion" Type="Self.EventoSubscripcion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Zona">
-              <PropertyRef Name="ZonaId" />
-            </Principal>
-            <Dependent Role="EventoSubscripcion">
-              <PropertyRef Name="ZonaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -366,7 +374,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Valores__Id_Sens__5070F446">
+        <Association Name="FK__Valores__SensorI__619B8048">
           <End Role="Sensores" Type="Self.Sensores" Multiplicity="1" />
           <End Role="Valores" Type="Self.Valores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -374,7 +382,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Valores">
-              <PropertyRef Name="Id_Sensor" />
+              <PropertyRef Name="SensorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -382,11 +390,11 @@
           <EntitySet Name="Evento" EntityType="Self.Evento" />
           <EntitySet Name="EventoRelacion" EntityType="Self.EventoRelacion" />
           <EntitySet Name="EventoSubscripcion" EntityType="Self.EventoSubscripcion" />
+          <EntitySet Name="HistoricoEvento" EntityType="Self.HistoricoEvento" />
           <EntitySet Name="Sensores" EntityType="Self.Sensores" />
           <EntitySet Name="Tipo_Sensor" EntityType="Self.Tipo_Sensor" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
           <EntitySet Name="Valores" EntityType="Self.Valores" />
-          <EntitySet Name="Zona" EntityType="Self.Zona" />
           <AssociationSet Name="FK__EventoRel__EvHij__5EBF139D" Association="Self.FK__EventoRel__EvHij__5EBF139D">
             <End Role="Evento" EntitySet="Evento" />
             <End Role="EventoRelacion" EntitySet="EventoRelacion" />
@@ -399,19 +407,19 @@
             <End Role="Evento" EntitySet="Evento" />
             <End Role="EventoSubscripcion" EntitySet="EventoSubscripcion" />
           </AssociationSet>
+          <AssociationSet Name="FK__Historico__Event__6477ECF3" Association="Self.FK__Historico__Event__6477ECF3">
+            <End Role="Evento" EntitySet="Evento" />
+            <End Role="HistoricoEvento" EntitySet="HistoricoEvento" />
+          </AssociationSet>
           <AssociationSet Name="FK__EventoSub__Usuar__5AEE82B9" Association="Self.FK__EventoSub__Usuar__5AEE82B9">
             <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="EventoSubscripcion" EntitySet="EventoSubscripcion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__EventoSub__ZonaI__59FA5E80" Association="Self.FK__EventoSub__ZonaI__59FA5E80">
-            <End Role="Zona" EntitySet="Zona" />
             <End Role="EventoSubscripcion" EntitySet="EventoSubscripcion" />
           </AssociationSet>
           <AssociationSet Name="FK__Sensores__Tipo__4CA06362" Association="Self.FK__Sensores__Tipo__4CA06362">
             <End Role="Tipo_Sensor" EntitySet="Tipo_Sensor" />
             <End Role="Sensores" EntitySet="Sensores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Valores__Id_Sens__5070F446" Association="Self.FK__Valores__Id_Sens__5070F446">
+          <AssociationSet Name="FK__Valores__SensorI__619B8048" Association="Self.FK__Valores__SensorI__619B8048">
             <End Role="Sensores" EntitySet="Sensores" />
             <End Role="Valores" EntitySet="Valores" />
           </AssociationSet>
@@ -427,7 +435,6 @@
               <MappingFragment StoreEntitySet="Evento">
                 <ScalarProperty Name="EventoId" ColumnName="EventoId" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
                 <ScalarProperty Name="ValorLimite" ColumnName="ValorLimite" />
                 <ScalarProperty Name="Operador" ColumnName="Operador" />
                 <ScalarProperty Name="TipoDato" ColumnName="TipoDato" />
@@ -448,9 +455,21 @@
             <EntityTypeMapping TypeName="DBTSI1Model.EventoSubscripcion">
               <MappingFragment StoreEntitySet="EventoSubscripcion">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ZonaId" ColumnName="ZonaId" />
                 <ScalarProperty Name="EventoId" ColumnName="EventoId" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Radio" ColumnName="Radio" />
+                <ScalarProperty Name="CentroLatitud" ColumnName="CentroLatitud" />
+                <ScalarProperty Name="CentroLongitud" ColumnName="CentroLongitud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoricoEvento">
+            <EntityTypeMapping TypeName="DBTSI1Model.HistoricoEvento">
+              <MappingFragment StoreEntitySet="HistoricoEvento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EventoId" ColumnName="EventoId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ValorCritico" ColumnName="ValorCritico" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -482,6 +501,7 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
                 <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -489,17 +509,9 @@
             <EntityTypeMapping TypeName="DBTSI1Model.Valores">
               <MappingFragment StoreEntitySet="Valores">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Id_Sensor" ColumnName="Id_Sensor" />
+                <ScalarProperty Name="SensorId" ColumnName="SensorId" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Zona">
-            <EntityTypeMapping TypeName="DBTSI1Model.Zona">
-              <MappingFragment StoreEntitySet="Zona">
-                <ScalarProperty Name="ZonaId" ColumnName="ZonaId" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

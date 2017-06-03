@@ -39,6 +39,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [ActionName("AddEventoComplejo")]
         public HttpResponseMessage AddEventoComplejo(EventoComplejo even)
         {
             IBLayer cap_negocio = new BLayer(new DALayer());

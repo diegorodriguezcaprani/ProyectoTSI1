@@ -10,7 +10,6 @@ namespace Shared.Entities
     {
         public int EventoId { get; set; }
         public string Nombre { get; set; }
-        public string ChannelName { get; set; }
         public string ValorLimite { get; set; }
         public string Operador { get; set; }
         public string TipoDato { get; set; }

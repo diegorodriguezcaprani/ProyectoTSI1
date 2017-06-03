@@ -31,7 +31,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddSubscripcion(Subscripcion sub)
+        public HttpResponseMessage AddSubscripcion(EventoSubscripcion sub)
         {
             IBLayer cap_negocio = new BLayer(new DALayer());
             cap_negocio.AddSubscripcion(sub);
