@@ -37,7 +37,22 @@ namespace Consumer
             Console.WriteLine("Notification success");
         }
 
-        private static void ProcedimientoHilo(object param)
+        private static void NotificarUsuarios(int eventoid, int sensorid, string nevento, string nmensaje)
+        {
+            //Busco coordenadas de sensor
+            HttpWebRequest request = WebRequest.Create("http://proyectotsi1.azurewebsites.net/api/Sensores/"+sensorid) as HttpWebRequest;
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            StreamReader read = new StreamReader(response.GetResponseStream());
+            string body = read.ReadToEnd();
+            dynamic misEventos = JsonConvert.DeserializeObject(body);
+
+            //busco subscripcion a dicho evento
+
+            //Notifico a los usuarios
+
+        }
+
+            private static void ProcedimientoHilo(object param)
         {
             ParamTask parametro = (ParamTask)param;
             int time = parametro.Frecuencia;
@@ -68,17 +83,18 @@ namespace Consumer
             }
 
             //Me creo sensor de dicho tipo
-            var postString = "{ id:"+tipo_dato+"}";
-            byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
-            HttpWebRequest requestSensor = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores") as HttpWebRequest;
+            //var postString = "{ id:"+tipo_dato+"}";
+            //byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
+            HttpWebRequest requestSensor = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores?tipo="+tipo_dato) as HttpWebRequest;
             string responseTxt;
             requestSensor.Method = "POST";
             requestSensor.ContentType = "application/x-www-form-urlencoded";
-            requestSensor.ContentLength = data.Length;
+            //requestSensor.ContentLength = data.Length;
             var stream = requestSensor.GetRequestStream();
-            stream.Write(data, 0, data.Length);
+            //stream.Write(data, 0, data.Length);
             HttpWebResponse responseSensor = (HttpWebResponse)requestSensor.GetResponse();
             responseTxt = new StreamReader(responseSensor.GetResponseStream()).ReadToEnd();
+            // Contiene texto. Falta parsear.
             string id_sensor = responseTxt;
             Console.WriteLine("El id del sensor es: " + id_sensor);
 
@@ -86,7 +102,7 @@ namespace Consumer
             while (true)
             {
                 //Consumo de sensor
-                HttpWebRequest request = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores"+"/"+id_sensor) as HttpWebRequest;
+                HttpWebRequest request = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores"+"/"+5) as HttpWebRequest;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 var encoding = ASCIIEncoding.UTF8;
                 string responseText;
@@ -104,41 +120,79 @@ namespace Consumer
                 string body = read.ReadToEnd();
                 dynamic misEventos = JsonConvert.DeserializeObject(body);
 
-                //Valor leido
-                int val_leido = Int32.Parse(responseText);
-                Console.WriteLine("Valor leido en entero es: " + val_leido);
-
-                //Itero en los eventos existentes para ver cuales se cumplen
-                foreach (var obj in misEventos)
+                //Diferencio por el tipo de dato del sensor
+                if (tipo_dato == 0)
                 {
-                    //Valor limite del evento
-                    Console.WriteLine("VALOR LIMITE ANTES: " + obj.ValorLimite);
-                    bool es = int.TryParse((string)obj.ValorLimite, out int val);
-                    Console.WriteLine("VALOR LIMITE DESP: " + val);
-
-                    //Compruebo el evento de acuerdo al operador
-                    bool cumple_evento = false;
-                    switch (obj.Operador)
+                    //Itero en los eventos existentes para ver cuales se cumplen
+                    foreach (var obj in misEventos)
                     {
-                        case "Max":
-                            cumple_evento = val > val_leido;
-                            break;
-                        case "Min":
-                            cumple_evento = val < val_leido;
-                            break;
-                        case "Igual":
-                            cumple_evento = val == val_leido;
-                            break;
+                        if (tipo == obj.TipoDato)
+                        {
+                            //Si se cumple el evento notifico
+                            if (responseText == obj.ValorLimite)
+                            {
+                                Console.WriteLine("Se cumple el evento " + obj.Nombre);
+                                NotificarUsuarios(obj.EventoId, Int32.Parse(id_sensor), "Notificacion-" + obj.Nombre, "Mensaje de notificacion " + obj.Nombre);
+                            }
+                        }
                     }
+                }
+                else if (tipo_dato == 1)
+                {
+                    //Valor leido
+                    int val_leido = Int32.Parse(responseText);
+                    Console.WriteLine("Valor leido en entero es: " + val_leido);
 
-
-                    //Si se cumple el evento notifico
-                    if (cumple_evento)
+                    //Itero en los eventos existentes para ver cuales se cumplen
+                    foreach (var obj in misEventos)
                     {
-                        Console.WriteLine("Se cumple el evento " + obj.Nombre);
-                        Notificar("my-channel","Notificacion-Evento","Mensaje de notificacion.");
-                    }
+                        if (tipo == obj.TipoDato)
+                        {
+                            //Valor limite del evento
+                            Console.WriteLine("VALOR LIMITE ANTES: " + obj.ValorLimite);
+                            bool es = int.TryParse((string)obj.ValorLimite, out int val);
+                            Console.WriteLine("VALOR LIMITE DESP: " + val);
 
+                            //Compruebo el evento de acuerdo al operador
+                            bool cumple_evento = false;
+                            switch (obj.Operador)
+                            {
+                                case "Max":
+                                    cumple_evento = val > val_leido;
+                                    break;
+                                case "Min":
+                                    cumple_evento = val < val_leido;
+                                    break;
+                                case "Igual":
+                                    cumple_evento = val == val_leido;
+                                    break;
+                            }
+
+
+                            //Si se cumple el evento notifico
+                            if (cumple_evento)
+                            {
+                                Console.WriteLine("Se cumple el evento " + obj.Nombre);
+                                NotificarUsuarios(obj.EventoId, Int32.Parse(id_sensor), "Notificacion-" + obj.Nombre, "Mensaje de notificacion " + obj.Nombre);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    //Itero en los eventos existentes para ver cuales se cumplen
+                    foreach (var obj in misEventos)
+                    {
+                        if (tipo == obj.TipoDato)
+                        {
+                            //Si se cumple el evento notifico
+                            if (responseText == obj.ValorLimite)
+                            {
+                                Console.WriteLine("Se cumple el evento " + obj.Nombre);
+                                NotificarUsuarios(obj.EventoId, Int32.Parse(id_sensor), "Notificacion-" + obj.Nombre, "Mensaje de notificacion " + obj.Nombre);
+                            }
+                        }
+                    }
                 }
 
                 Thread.Sleep((int)time);

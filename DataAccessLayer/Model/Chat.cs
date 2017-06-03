@@ -12,27 +12,22 @@ namespace DataAccessLayer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class Chat
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public Chat()
         {
             this.chat_msg = new HashSet<chat_msg>();
-            this.EventoSubscripcion = new HashSet<EventoSubscripcion>();
-            this.Chat = new HashSet<Chat>();
+            this.Usuario = new HashSet<Usuario>();
         }
     
-        public int UsuarioId { get; set; }
+        public int ChatId { get; set; }
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string TokenId { get; set; }
         public string ChannelName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<chat_msg> chat_msg { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EventoSubscripcion> EventoSubscripcion { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Chat> Chat { get; set; }
+        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

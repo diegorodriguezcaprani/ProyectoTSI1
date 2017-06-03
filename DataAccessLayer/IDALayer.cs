@@ -9,6 +9,8 @@ namespace DataAccessLayer
 {
     public interface IDALayer
     {
+        int Login(Login usr);
+
         void AddTipo(TipoSensor sen);
         void DeleteTipo(int id);
         void UpdateTipo(TipoSensor sen);

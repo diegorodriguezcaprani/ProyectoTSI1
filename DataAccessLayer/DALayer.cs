@@ -9,12 +9,45 @@ namespace DataAccessLayer
 {
     public class DALayer : IDALayer
     {
-        private int maxID()
+        private int maxIDUsr()
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                int max = db_context.Usuario.Max(e => e.UsuarioId);
+                return max;
+            }
+        }
+
+        private int maxIDEvento()
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
                 int max = db_context.Evento.Max(e => e.EventoId);
                 return max;
+            }
+        }
+
+        public int Login(Login usr)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                var usuario = (from u in db_context.Usuario
+                                         where u.TokenId == usr.TokenId
+                                         select u);
+                if (usuario == null)
+                {
+                    int id = maxIDUsr()+1;
+                    AddUsuario(new Usuario() {
+                        Nombre = usr.Nombre,
+                        Apellido = usr.Apellido,
+                        TokenId = usr.TokenId
+                    });
+                    return id;
+                }
+                else
+                {
+                    return ((Model.Usuario)usuario).UsuarioId;
+                }
             }
         }
 
@@ -357,7 +390,7 @@ namespace DataAccessLayer
                     Model.EventoRelacion relev = new Model.EventoRelacion()
                     {
                         //Tengo que obtener el nro de id del padre (el que agrego arriba)
-                        EvPadreId = maxID()+1,
+                        EvPadreId = maxIDEvento()+1,
                         EvHijoId = even.EventoId,
                         Operador = ev.Operador,
                         Activado = false
@@ -451,7 +484,7 @@ namespace DataAccessLayer
                     Nombre = u.Nombre,
                     Apellido = u.Apellido,
                     TokenId = u.TokenId,
-                    ChannelName = u.ChannelName
+                    ChannelName = "user-"+ maxIDUsr()+1
                 };
 
                 db_context.Usuario.Add(usr);
