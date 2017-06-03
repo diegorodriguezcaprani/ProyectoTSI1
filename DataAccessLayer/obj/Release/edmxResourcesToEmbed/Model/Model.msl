@@ -6,10 +6,19 @@
         <MappingFragment StoreEntitySet="Evento">
           <ScalarProperty Name="EventoId" ColumnName="EventoId" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
           <ScalarProperty Name="ValorLimite" ColumnName="ValorLimite" />
           <ScalarProperty Name="Operador" ColumnName="Operador" />
           <ScalarProperty Name="TipoDato" ColumnName="TipoDato" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventoRelacion">
+      <EntityTypeMapping TypeName="DBTSI1Model.EventoRelacion">
+        <MappingFragment StoreEntitySet="EventoRelacion">
+          <ScalarProperty Name="EvPadreId" ColumnName="EvPadreId" />
+          <ScalarProperty Name="EvHijoId" ColumnName="EvHijoId" />
+          <ScalarProperty Name="Activado" ColumnName="Activado" />
+          <ScalarProperty Name="Operador" ColumnName="Operador" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -17,9 +26,21 @@
       <EntityTypeMapping TypeName="DBTSI1Model.EventoSubscripcion">
         <MappingFragment StoreEntitySet="EventoSubscripcion">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="ZonaId" ColumnName="ZonaId" />
           <ScalarProperty Name="EventoId" ColumnName="EventoId" />
           <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="Radio" ColumnName="Radio" />
+          <ScalarProperty Name="CentroLatitud" ColumnName="CentroLatitud" />
+          <ScalarProperty Name="CentroLongitud" ColumnName="CentroLongitud" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoricoEvento">
+      <EntityTypeMapping TypeName="DBTSI1Model.HistoricoEvento">
+        <MappingFragment StoreEntitySet="HistoricoEvento">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EventoId" ColumnName="EventoId" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="ValorCritico" ColumnName="ValorCritico" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -51,6 +72,7 @@
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Apellido" ColumnName="Apellido" />
           <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+          <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -58,17 +80,9 @@
       <EntityTypeMapping TypeName="DBTSI1Model.Valores">
         <MappingFragment StoreEntitySet="Valores">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Id_Sensor" ColumnName="Id_Sensor" />
+          <ScalarProperty Name="SensorId" ColumnName="SensorId" />
           <ScalarProperty Name="Valor" ColumnName="Valor" />
           <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Zona">
-      <EntityTypeMapping TypeName="DBTSI1Model.Zona">
-        <MappingFragment StoreEntitySet="Zona">
-          <ScalarProperty Name="ZonaId" ColumnName="ZonaId" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

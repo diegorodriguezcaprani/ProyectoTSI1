@@ -3,3 +3,8 @@ C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\CrossCutting
 C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\CrossCutting\obj\Release\Shared.csprojResolveAssemblyReference.cache
 C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\CrossCutting\obj\Release\Shared.dll
 C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\CrossCutting\obj\Release\Shared.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\CrossCutting\bin\Release\Shared.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\CrossCutting\bin\Release\Shared.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\CrossCutting\obj\Release\Shared.csprojResolveAssemblyReference.cache
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\CrossCutting\obj\Release\Shared.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\CrossCutting\obj\Release\Shared.pdb

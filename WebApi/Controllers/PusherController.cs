@@ -11,14 +11,14 @@ namespace WebApi.Controllers
     public class PusherController : ApiController
     {
         [HttpPost]
-        public HttpResponseMessage Pusher()
+        public HttpResponseMessage Pusher(string channel, string evento ,string mensaje)
         {
             var options = new PusherOptions();
             options.Encrypted = true;
 
             var pusher = new Pusher("330934", "6e63ad3e4d4ab9070643", "afd98f579ce0cac30bd5", options);
 
-            var result = pusher.Trigger("my-channel", "my-event", new { message = "Temperatura elevada." });
+            var result = pusher.Trigger(channel, evento, new { message = mensaje });
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 

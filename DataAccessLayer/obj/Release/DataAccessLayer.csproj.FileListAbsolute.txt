@@ -1,12 +1,12 @@
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\DataAccessLayer.dll.config
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\DataAccessLayer.dll
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\DataAccessLayer.pdb
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\EntityFramework.dll
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\EntityFramework.SqlServer.dll
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\Shared.dll
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\Shared.pdb
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\EntityFramework.xml
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\bin\Release\EntityFramework.SqlServer.xml
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\obj\Release\DataAccessLayer.csprojResolveAssemblyReference.cache
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\obj\Release\DataAccessLayer.dll
-C:\Users\toshiba\Documents\Visual Studio 2017\Projects\ProyectoTSI1\DataAccessLayer\obj\Release\DataAccessLayer.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\DataAccessLayer.dll.config
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\DataAccessLayer.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\DataAccessLayer.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\EntityFramework.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\Shared.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\Shared.pdb
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\EntityFramework.xml
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\obj\Release\DataAccessLayer.csprojResolveAssemblyReference.cache
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\obj\Release\DataAccessLayer.dll
+C:\Users\toshiba\Documents\Facultad\2017\PrimerSemestre\TSI1\ProyectoTSI1\DataAccessLayer\obj\Release\DataAccessLayer.pdb

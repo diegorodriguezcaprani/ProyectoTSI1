@@ -26,11 +26,12 @@ namespace DataAccessLayer.Model
         }
     
         public virtual DbSet<Evento> Evento { get; set; }
+        public virtual DbSet<EventoRelacion> EventoRelacion { get; set; }
         public virtual DbSet<EventoSubscripcion> EventoSubscripcion { get; set; }
+        public virtual DbSet<HistoricoEvento> HistoricoEvento { get; set; }
         public virtual DbSet<Sensores> Sensores { get; set; }
         public virtual DbSet<Tipo_Sensor> Tipo_Sensor { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Valores> Valores { get; set; }
-        public virtual DbSet<Zona> Zona { get; set; }
     }
 }

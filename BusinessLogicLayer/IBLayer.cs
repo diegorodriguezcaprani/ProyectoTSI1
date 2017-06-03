@@ -30,16 +30,11 @@ namespace BusinessLogicLayer
         List<Valores> GetValoresDeSensorConFecha(int idSensor, String fecha);
 
         void AddEvento(Evento ev);
+        void AddEventoComplejo(EventoComplejo ev);
         void DeleteEvento(int id);
         void UpdateEvento(Evento ev);
         List<Evento> GetAllEventos();
         Evento GetEvento(int id);
-
-        void AddZona(Zona ev);
-        void DeleteZona(int id);
-        void UpdateZona(Zona ev);
-        List<Zona> GetAllZonas();
-        Zona GetZona(int id);
 
         void AddUsuario(Usuario ev);
         void DeleteUsuario(int id);
@@ -47,10 +42,15 @@ namespace BusinessLogicLayer
         List<Usuario> GetAllUsuarios();
         Usuario GetUsuario(int id);
 
-        void AddSubscripcion(Subscripcion sub);
+        void AddSubscripcion(EventoSubscripcion sub);
         void DeleteSubscripcion(int id);
-        void UpdateSubscripcion(Subscripcion sub);
-        List<Subscripcion> GetAllSubscripciones();
-        Subscripcion GetSubscripcion(int id);
+        void UpdateSubscripcion(EventoSubscripcion sub);
+        List<EventoSubscripcion> GetAllSubscripciones();
+        EventoSubscripcion GetSubscripcion(int id);
+
+        void AddRelacionEvento(EventoRelacion sub);
+        void DeleteRelacionEvento(int idev1, int idev2);
+        void UpdateRelacionEvento(EventoRelacion sub);
+        List<EventoRelacion> GetAllRelacionesEventos();
     }
 }

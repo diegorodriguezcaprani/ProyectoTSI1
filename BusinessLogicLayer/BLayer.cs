@@ -107,6 +107,11 @@ namespace BusinessLogicLayer
             _dal.AddEvento(ev);
         }
 
+        public void AddEventoComplejo(EventoComplejo ev)
+        {
+            _dal.AddEventoComplejo(ev);
+        }
+
         public void DeleteEvento(int id)
         {
             _dal.DeleteEvento(id);
@@ -125,31 +130,6 @@ namespace BusinessLogicLayer
         public Evento GetEvento(int id)
         {
             return _dal.GetEvento(id);
-        }
-
-        public void AddZona(Zona zona)
-        {
-            _dal.AddZona(zona);
-        }
-
-        public void DeleteZona(int id)
-        {
-            _dal.DeleteZona(id);
-        }
-
-        public void UpdateZona(Zona zona)
-        {
-            _dal.UpdateZona(zona);
-        }
-
-        public List<Zona> GetAllZonas()
-        {
-            return _dal.GetAllZonas();
-        }
-
-        public Zona GetZona(int id)
-        {
-            return _dal.GetZona(id);
         }
 
         public void AddUsuario(Usuario usr)
@@ -177,7 +157,7 @@ namespace BusinessLogicLayer
             return _dal.GetUsuario(id);
         }
 
-        public void AddSubscripcion(Subscripcion sub)
+        public void AddSubscripcion(EventoSubscripcion sub)
         {
             _dal.AddSubscripcion(sub);
         }
@@ -187,19 +167,40 @@ namespace BusinessLogicLayer
             _dal.DeleteSubscripcion(id);
         }
 
-        public void UpdateSubscripcion(Subscripcion sub)
+        public void UpdateSubscripcion(EventoSubscripcion sub)
         {
             _dal.UpdateSubscripcion(sub);
         }
 
-        public List<Subscripcion> GetAllSubscripciones()
+        public List<EventoSubscripcion> GetAllSubscripciones()
         {
             return _dal.GetAllSubscripciones();
         }
 
-        public Subscripcion GetSubscripcion(int id)
+        public EventoSubscripcion GetSubscripcion(int id)
         {
             return _dal.GetSubscripcion(id);
         }
+
+        public void AddRelacionEvento(EventoRelacion rel)
+        {
+            _dal.AddRelacionEvento(rel);
+        }
+
+        public void DeleteRelacionEvento(int idev1,int idev2)
+        {
+            _dal.DeleteRelacionEvento(idev1,idev2);
+        }
+
+        public void UpdateRelacionEvento(EventoRelacion rel)
+        {
+            _dal.UpdateRelacionEvento(rel);
+        }
+
+        public List<EventoRelacion> GetAllRelacionesEventos()
+        {
+            return _dal.GetAllRelacionesEventos();
+        }
+
     }
 }
