@@ -132,6 +132,42 @@ namespace BusinessLogicLayer
             return _dal.GetEvento(id);
         }
 
+        public void AddHistoricoEvento(HistoricoEvento ev)
+        {
+            _dal.AddHistoricoEvento(ev);
+        }
+
+        public void DeleteHistoricoEvento(int id)
+        {
+            _dal.DeleteHistoricoEvento(id);
+        }
+
+        public void UpdateHistoricoEvento(HistoricoEvento ev)
+        {
+            _dal.UpdateHistoricoEvento(ev);
+        }
+
+        public List<HistoricoEvento> GetAllHistoricoEventos()
+        {
+            return _dal.GetAllHistoricoEventos();
+        }
+
+        public HistoricoEvento GetHistoricoEvento(int id)
+        {
+            return _dal.GetHistoricoEvento(id);
+        }
+
+        public List<HistoricoEvento> GetAllHistoricoEventosDeEventoId(int e)
+        {
+            return _dal.GetAllHistoricoEventosDeEventoId(e);
+        }
+
+        public List<HistoricoEvento> GetAllHistoricoEventosFecha(int e, String fecha)
+        {
+            return _dal.GetAllHistoricoEventosFecha(e, fecha);
+        }
+
+
         public void AddUsuario(Usuario usr)
         {
             _dal.AddUsuario(usr);

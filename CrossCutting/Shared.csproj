@@ -43,6 +43,7 @@
     <Compile Include="Entities\EventoComplejo.cs" />
     <Compile Include="Entities\EventoRelacion.cs" />
     <Compile Include="Entities\EventoSubscripcion.cs" />
+    <Compile Include="Entities\HistoricoEvento.cs" />
     <Compile Include="Entities\ListEventos.cs" />
     <Compile Include="Entities\ParamTask.cs" />
     <Compile Include="Entities\Sensores.cs" />

@@ -298,24 +298,30 @@ namespace DataAccessLayer
         public List<Valores> GetValoresDeSensorConFecha(int idSensor, String fecha)
         {
             DateTime dt = Convert.ToDateTime(fecha);
+           
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
                 List<Valores> valores = new List<Valores>();
                 var valor = (from v in db_context.Valores
                              where v.SensorId == idSensor
-                             where v.Fecha == dt
                              select v);
+               
                 foreach (Model.Valores v in valor)
                 {
-                    Valores val = new Valores()
-                    {
-                        Id = v.Id,
-                        Id_Sensor = v.SensorId,
-                        Valor_ = v.Valor,
-                        Fecha = v.Fecha
-                    };
 
-                    valores.Add(val);
+
+                    if (v.Fecha.Date == dt.Date)
+                    {
+                        Valores val = new Valores()
+                        {
+                            Id = v.Id,
+                            Id_Sensor = v.SensorId,
+                            Valor_ = v.Valor,
+                            Fecha = v.Fecha
+                        };
+
+                        valores.Add(val);
+                    }
                 }
                 return valores;
             }
@@ -439,6 +445,151 @@ namespace DataAccessLayer
                 };
 
                 return evento;
+            }
+        }
+
+
+        public void AddHistoricoEvento(HistoricoEvento ev)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                Model.HistoricoEvento histevento = new Model.HistoricoEvento()
+                {
+                    EventoId=ev.EventoId,
+                    Fecha=ev.Fecha,
+                    ValorCritico=ev.ValorCritico
+                };
+
+                db_context.HistoricoEvento.Add(histevento);
+                db_context.SaveChanges();
+            }
+        }
+
+
+        public void DeleteHistoricoEvento(int id)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                var ev = (from e in db_context.HistoricoEvento
+                          where e.Id == id
+                          select e).First();
+                db_context.HistoricoEvento.Remove(ev);
+                db_context.SaveChanges();
+            }
+        }
+
+        public void UpdateHistoricoEvento(HistoricoEvento ev)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                Model.HistoricoEvento histevento = db_context.HistoricoEvento.Find(ev.Id);
+                histevento.EventoId = ev.EventoId;
+                histevento.Fecha = ev.Fecha;
+                histevento.ValorCritico = ev.ValorCritico;
+
+                db_context.SaveChanges();
+            }
+        }
+
+
+        public List<HistoricoEvento> GetAllHistoricoEventos()
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                List<HistoricoEvento> histeventos = new List<HistoricoEvento>();
+                var eventos_db = from e in db_context.HistoricoEvento
+                                 select e;
+
+                foreach (Model.HistoricoEvento ev in eventos_db)
+                {
+                    HistoricoEvento e = new HistoricoEvento()
+                    {
+                        Id = ev.Id,
+                        EventoId = ev.EventoId,
+                        Fecha= ev.Fecha,
+                        ValorCritico=ev.ValorCritico
+                    };
+
+                    histeventos.Add(e);
+                };
+
+                return histeventos;
+            }
+        }
+
+        public HistoricoEvento GetHistoricoEvento(int id)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                var ev = (from e in db_context.HistoricoEvento
+                          where e.Id == id
+                          select e).First();
+
+                HistoricoEvento histevento = new HistoricoEvento()
+                {
+                    Id = ev.Id,
+                    EventoId = ev.EventoId,
+                    Fecha= ev.Fecha,
+                    ValorCritico=ev.ValorCritico
+                };
+
+                return histevento;
+            }
+        }
+
+        public List<HistoricoEvento> GetAllHistoricoEventosDeEventoId(int eventoid)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                List<HistoricoEvento> histeventos = new List<HistoricoEvento>();
+                var eventos_db = (from e in db_context.HistoricoEvento
+                                 where e.EventoId == eventoid
+                                 select e);
+
+                foreach (Model.HistoricoEvento ev in eventos_db)
+                {
+                    HistoricoEvento e = new HistoricoEvento() { 
+                    
+                        Id=ev.Id,
+                        EventoId = ev.EventoId,
+                        Fecha = ev.Fecha,
+                        ValorCritico = ev.ValorCritico
+                    };
+
+                    histeventos.Add(e);
+                };
+
+                return histeventos;
+            }
+        }
+
+        public List<HistoricoEvento> GetAllHistoricoEventosFecha(int eventoid, String fecha)
+        {
+            DateTime dt = Convert.ToDateTime(fecha);
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                List<HistoricoEvento> histeventos = new List<HistoricoEvento>();
+                var eventos_db = from e in db_context.HistoricoEvento
+                                  where e.EventoId == eventoid
+                                  select e;
+
+                foreach (Model.HistoricoEvento ev in eventos_db)
+                {
+                    if (ev.Fecha.Date == dt.Date)
+                    {
+                        HistoricoEvento e = new HistoricoEvento()
+                        {
+                            Id = ev.Id,
+                            EventoId = ev.EventoId,
+                            Fecha = ev.Fecha,
+                            ValorCritico = ev.ValorCritico
+                        };
+
+                        histeventos.Add(e);
+                    }
+                };
+
+                return histeventos;
             }
         }
 

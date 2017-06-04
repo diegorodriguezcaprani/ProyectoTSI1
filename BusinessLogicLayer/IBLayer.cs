@@ -36,6 +36,14 @@ namespace BusinessLogicLayer
         List<Evento> GetAllEventos();
         Evento GetEvento(int id);
 
+        void AddHistoricoEvento(HistoricoEvento ev);
+        void DeleteHistoricoEvento(int id);
+        void UpdateHistoricoEvento(HistoricoEvento ev);
+        List<HistoricoEvento> GetAllHistoricoEventos();
+        HistoricoEvento GetHistoricoEvento(int id);
+        List<HistoricoEvento> GetAllHistoricoEventosDeEventoId(int e);
+        List<HistoricoEvento> GetAllHistoricoEventosFecha(int e, String fecha);
+
         void AddUsuario(Usuario ev);
         void DeleteUsuario(int id);
         void UpdateUsuario(Usuario ev);
