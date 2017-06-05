@@ -12,7 +12,7 @@ namespace Shared.Entities
         public int EventoId { get; set; }
         public int UsuarioId { get; set; }
         public int Radio { get; set; }
-        public double CentroLatitud { get; set; }
-        public double CentroLongitud { get; set; }
+        public float CentroLatitud { get; set; }
+        public float CentroLongitud { get; set; }
     }
 }

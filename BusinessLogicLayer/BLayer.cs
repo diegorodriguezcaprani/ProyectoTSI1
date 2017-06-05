@@ -17,7 +17,7 @@ namespace BusinessLogicLayer
             _dal = dal;
         }
 
-        public int Login(Login usr)
+        public ResponseFront Login(Login usr)
         {
             return _dal.Login(usr);
         }
@@ -180,6 +180,16 @@ namespace BusinessLogicLayer
         public List<EventoSubscripcion> GetAllSubscripciones()
         {
             return _dal.GetAllSubscripciones();
+        }
+
+        public List<EventoSubscripcion> GetAllSubscripcionesByUsr(int id)
+        {
+            return _dal.GetAllSubscripcionesByUsr(id);
+        }
+
+        public List<EventoSubscripcion> GetAllSubscripcionesByEvent(int id)
+        {
+            return _dal.GetAllSubscripcionesByEvent(id);
         }
 
         public EventoSubscripcion GetSubscripcion(int id)

@@ -46,6 +46,7 @@
     <Compile Include="Entities\ListEventos.cs" />
     <Compile Include="Entities\Login.cs" />
     <Compile Include="Entities\ParamTask.cs" />
+    <Compile Include="Entities\ResponseFront.cs" />
     <Compile Include="Entities\Sensores.cs" />
     <Compile Include="Entities\TipoSensor.cs" />
     <Compile Include="Entities\Usuario.cs" />

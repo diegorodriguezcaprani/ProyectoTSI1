@@ -9,7 +9,7 @@ namespace BusinessLogicLayer
 {
     public interface IBLayer
     {
-        int Login(Login usr);
+        ResponseFront Login(Login usr);
 
         void AddSensor(Sensores sen);
         void DeleteSensor(int id);
@@ -48,6 +48,8 @@ namespace BusinessLogicLayer
         void DeleteSubscripcion(int id);
         void UpdateSubscripcion(EventoSubscripcion sub);
         List<EventoSubscripcion> GetAllSubscripciones();
+        List<EventoSubscripcion> GetAllSubscripcionesByUsr(int id);
+        List<EventoSubscripcion> GetAllSubscripcionesByEvent(int id);
         EventoSubscripcion GetSubscripcion(int id);
 
         void AddRelacionEvento(EventoRelacion sub);

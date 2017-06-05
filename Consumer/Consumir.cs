@@ -21,15 +21,12 @@ namespace Consumer
             byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
             HttpWebRequest request = WebRequest.Create("http://proyectotsi1.azurewebsites.net/api/Pusher") as HttpWebRequest;
             string responseText;
-            //var data = Encoding.ASCII.GetBytes(responseText);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = data.Length;
             using (var stream = request.GetRequestStream())
             {
-                //stream.Write(data, 0, data.Length);
-                /*responseText = readerPusher.ReadToEnd();
-                Console.WriteLine(responseText);*/
+                stream.Write(data, 0, data.Length);
             }
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             responseText = new StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -37,22 +34,75 @@ namespace Consumer
             Console.WriteLine("Notification success");
         }
 
+        private static Boolean interesadoEnEvento(float lat_sen, float long_sen, float cen_lat, float cen_long, int radio)
+        {
+            return true;
+        }
+
         private static void NotificarUsuarios(int eventoid, int sensorid, string nevento, string nmensaje)
         {
             //Busco coordenadas de sensor
-            HttpWebRequest request = WebRequest.Create("http://proyectotsi1.azurewebsites.net/api/Sensores/"+sensorid) as HttpWebRequest;
+            var postString = "{ id:" + sensorid+ " }";
+            byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
+            HttpWebRequest request = WebRequest.Create("http://proyectotsi1.azurewebsites.net/api/Sensores/") as HttpWebRequest;
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             StreamReader read = new StreamReader(response.GetResponseStream());
             string body = read.ReadToEnd();
             dynamic misEventos = JsonConvert.DeserializeObject(body);
+            Sensores sens = (Sensores)misEventos;
+            float latitud_sensor = sens.Latitud;
+            float longitud_sensor = sens.Longitud;
 
-            //busco subscripcion a dicho evento
+            //busco subscripciones a dicho evento (todos los usuarios subscriptos)
+            postString = "{ id:" + sensorid + " }";
+            data = UTF8Encoding.UTF8.GetBytes(postString);
+            request = WebRequest.Create("http://proyectotsi1.azurewebsites.net/api/Subscripciones/subsByEvent") as HttpWebRequest;
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+            response = (HttpWebResponse)request.GetResponse();
+            read = new StreamReader(response.GetResponseStream());
+            body = read.ReadToEnd();
+            dynamic misSubscripciones = JsonConvert.DeserializeObject(body);
 
-            //Notifico a los usuarios
+            foreach (EventoSubscripcion ev in misSubscripciones)
+            {
+                //Si esta en el area marcada por el usuario
+                if (interesadoEnEvento(latitud_sensor,longitud_sensor,ev.CentroLatitud,ev.CentroLongitud,ev.Radio))
+                {
+                    //Obtengo el usuario
+                    postString = "{ id:" + sensorid + " }";
+                    data = UTF8Encoding.UTF8.GetBytes(postString);
+                    HttpWebRequest requestUsr = WebRequest.Create("http://proyectotsi1.azurewebsites.net/api/Usuarios/") as HttpWebRequest;
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    request.ContentLength = data.Length;
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+                    HttpWebResponse responseUsr = (HttpWebResponse)request.GetResponse();
+                    StreamReader readUsr = new StreamReader(response.GetResponseStream());
+                    string bodyUsr = readUsr.ReadToEnd();
+                    dynamic miUsr = JsonConvert.DeserializeObject(bodyUsr);
+                    Usuario usr = (Usuario)miUsr;
+
+                    //Notifico
+                    Notificar(usr.ChannelName, nevento, nmensaje);
+                    }
+            }
 
         }
 
-            private static void ProcedimientoHilo(object param)
+        private static void ProcedimientoHilo(object param)
         {
             ParamTask parametro = (ParamTask)param;
             int time = parametro.Frecuencia;
@@ -83,26 +133,38 @@ namespace Consumer
             }
 
             //Me creo sensor de dicho tipo
-            //var postString = "{ id:"+tipo_dato+"}";
-            //byte[] data = UTF8Encoding.UTF8.GetBytes(postString);
-            HttpWebRequest requestSensor = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores?tipo="+tipo_dato) as HttpWebRequest;
+            var infotipo = "{ id:"+tipo_dato+"}";
+            byte[] datatipo = UTF8Encoding.UTF8.GetBytes(infotipo);
+            HttpWebRequest requestSensor = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores") as HttpWebRequest;
             string responseTxt;
             requestSensor.Method = "POST";
             requestSensor.ContentType = "application/x-www-form-urlencoded";
-            //requestSensor.ContentLength = data.Length;
-            var stream = requestSensor.GetRequestStream();
-            //stream.Write(data, 0, data.Length);
+            requestSensor.ContentLength = datatipo.Length;
+            using (var stream = requestSensor.GetRequestStream())
+            {
+                stream.Write(datatipo, 0, datatipo.Length);
+            }
             HttpWebResponse responseSensor = (HttpWebResponse)requestSensor.GetResponse();
             responseTxt = new StreamReader(responseSensor.GetResponseStream()).ReadToEnd();
             // Contiene texto. Falta parsear.
             string id_sensor = responseTxt;
             Console.WriteLine("El id del sensor es: " + id_sensor);
 
+
             //Comienzo a consultar el sensor creado
             while (true)
             {
                 //Consumo de sensor
-                HttpWebRequest request = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores"+"/"+5) as HttpWebRequest;
+                var info = "{ id:" + "5" + "}";
+                byte[] data = UTF8Encoding.UTF8.GetBytes(info);
+                HttpWebRequest request = WebRequest.Create("http://mocksensores20170513030338.azurewebsites.net/api/sensores") as HttpWebRequest;
+                //request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = data.Length;
+                using (var stream2 = request.GetRequestStream())
+                {
+                    stream2.Write(data, 0, data.Length);
+                }
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 var encoding = ASCIIEncoding.UTF8;
                 string responseText;

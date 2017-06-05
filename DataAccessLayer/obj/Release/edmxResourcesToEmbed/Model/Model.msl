@@ -1,6 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DBTSI1ModelStoreContainer" CdmEntityContainer="DBTSI1Entities">
+    <EntitySetMapping Name="Chat">
+      <EntityTypeMapping TypeName="DBTSI1Model.Chat">
+        <MappingFragment StoreEntitySet="Chat">
+          <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chat_msg">
+      <EntityTypeMapping TypeName="DBTSI1Model.chat_msg">
+        <MappingFragment StoreEntitySet="chat_msg">
+          <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Evento">
       <EntityTypeMapping TypeName="DBTSI1Model.Evento">
         <MappingFragment StoreEntitySet="Evento">
@@ -86,5 +105,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="chat_subscripcion" TypeName="DBTSI1Model.chat_subscripcion" StoreEntitySet="chat_subscripcion">
+      <EndProperty Name="Chat">
+        <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+      </EndProperty>
+      <EndProperty Name="Usuario">
+        <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -23,6 +23,24 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
+        [ActionName("subsByUsr")]
+        public HttpResponseMessage GetAllSubscripcionesByUsr(int id)
+        {
+            IBLayer cap_negocio = new BLayer(new DALayer());
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(cap_negocio.GetAllSubscripcionesByUsr(id));
+            return new HttpResponseMessage() { Content = new StringContent(json) };
+        }
+
+        [HttpGet]
+        [ActionName("subsByEvent")]
+        public HttpResponseMessage GetAllSubscripcionesByEvent(int id)
+        {
+            IBLayer cap_negocio = new BLayer(new DALayer());
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(cap_negocio.GetAllSubscripcionesByEvent(id));
+            return new HttpResponseMessage() { Content = new StringContent(json) };
+        }
+
+        [HttpGet]
         public HttpResponseMessage GetSubscripcion(int id)
         {
             IBLayer cap_negocio = new BLayer(new DALayer());

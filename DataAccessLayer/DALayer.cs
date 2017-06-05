@@ -27,7 +27,7 @@ namespace DataAccessLayer
             }
         }
 
-        public int Login(Login usr)
+        public ResponseFront Login(Login usr)
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
@@ -42,11 +42,21 @@ namespace DataAccessLayer
                         Apellido = usr.Apellido,
                         TokenId = usr.TokenId
                     });
-                    return id;
+                    ResponseFront resp = new ResponseFront()
+                    {
+                        status = true,
+                        valor = id.ToString()
+                    };
+                    return resp;
                 }
                 else
                 {
-                    return ((Model.Usuario)usuario).UsuarioId;
+                    ResponseFront resp = new ResponseFront()
+                    {
+                        status = true,
+                        valor = ((Model.Usuario)usuario).UsuarioId.ToString()
+                    };
+                    return resp;
                 }
             }
         }
@@ -615,6 +625,62 @@ namespace DataAccessLayer
             {
                 List<EventoSubscripcion> subscripciones = new List<EventoSubscripcion>();
                 var subs_db = from s in db_context.EventoSubscripcion
+                              select s;
+
+                foreach (Model.EventoSubscripcion subs in subs_db)
+                {
+                    EventoSubscripcion subscripcion = new EventoSubscripcion()
+                    {
+                        Id = subs.Id,
+                        UsuarioId = subs.UsuarioId,
+                        EventoId = subs.EventoId,
+                        Radio = subs.Radio,
+                        CentroLatitud = subs.CentroLatitud,
+                        CentroLongitud = subs.CentroLongitud
+                    };
+
+                    subscripciones.Add(subscripcion);
+                };
+
+                return subscripciones;
+            }
+        }
+
+        public List<EventoSubscripcion> GetAllSubscripcionesByUsr(int id)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                List<EventoSubscripcion> subscripciones = new List<EventoSubscripcion>();
+                var subs_db = from s in db_context.EventoSubscripcion
+                              where s.UsuarioId == id
+                              select s;
+
+                foreach (Model.EventoSubscripcion subs in subs_db)
+                {
+                    EventoSubscripcion subscripcion = new EventoSubscripcion()
+                    {
+                        Id = subs.Id,
+                        UsuarioId = subs.UsuarioId,
+                        EventoId = subs.EventoId,
+                        Radio = subs.Radio,
+                        CentroLatitud = subs.CentroLatitud,
+                        CentroLongitud = subs.CentroLongitud
+                    };
+
+                    subscripciones.Add(subscripcion);
+                };
+
+                return subscripciones;
+            }
+        }
+
+        public List<EventoSubscripcion> GetAllSubscripcionesByEvent(int id)
+        {
+            using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
+            {
+                List<EventoSubscripcion> subscripciones = new List<EventoSubscripcion>();
+                var subs_db = from s in db_context.EventoSubscripcion
+                              where s.EventoId == id
                               select s;
 
                 foreach (Model.EventoSubscripcion subs in subs_db)

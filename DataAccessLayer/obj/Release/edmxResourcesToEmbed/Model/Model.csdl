@@ -1,5 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DBTSI1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Chat">
+    <Key>
+      <PropertyRef Name="ChatId" />
+    </Key>
+    <Property Name="ChatId" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="chat_msg" Relationship="Self.FK__chat_msg__ChatId__6D0D32F4" FromRole="Chat" ToRole="chat_msg" />
+    <NavigationProperty Name="Usuario" Relationship="Self.chat_subscripcion" FromRole="Chat" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="chat_msg">
+    <Key>
+      <PropertyRef Name="ChatId" />
+      <PropertyRef Name="UsuarioId" />
+      <PropertyRef Name="Fecha" />
+    </Key>
+    <Property Name="ChatId" Type="Int32" Nullable="false" />
+    <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Chat" Relationship="Self.FK__chat_msg__ChatId__6D0D32F4" FromRole="chat_msg" ToRole="Chat" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK__chat_msg__Usuari__6E01572D" FromRole="chat_msg" ToRole="Usuario" />
+  </EntityType>
   <EntityType Name="Evento">
     <Key>
       <PropertyRef Name="EventoId" />
@@ -80,7 +103,9 @@
     <Property Name="Apellido" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="TokenId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="chat_msg" Relationship="Self.FK__chat_msg__Usuari__6E01572D" FromRole="Usuario" ToRole="chat_msg" />
     <NavigationProperty Name="EventoSubscripcion" Relationship="Self.FK__EventoSub__Usuar__5AEE82B9" FromRole="Usuario" ToRole="EventoSubscripcion" />
+    <NavigationProperty Name="Chat" Relationship="Self.chat_subscripcion" FromRole="Usuario" ToRole="Chat" />
   </EntityType>
   <EntityType Name="Valores">
     <Key>
@@ -92,6 +117,30 @@
     <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Sensores" Relationship="Self.FK__Valores__SensorI__619B8048" FromRole="Valores" ToRole="Sensores" />
   </EntityType>
+  <Association Name="FK__chat_msg__ChatId__6D0D32F4">
+    <End Role="Chat" Type="Self.Chat" Multiplicity="1" />
+    <End Role="chat_msg" Type="Self.chat_msg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Chat">
+        <PropertyRef Name="ChatId" />
+      </Principal>
+      <Dependent Role="chat_msg">
+        <PropertyRef Name="ChatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__chat_msg__Usuari__6E01572D">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="chat_msg" Type="Self.chat_msg" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="UsuarioId" />
+      </Principal>
+      <Dependent Role="chat_msg">
+        <PropertyRef Name="UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__EventoRel__EvHij__5EBF139D">
     <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
     <End Role="EventoRelacion" Type="Self.EventoRelacion" Multiplicity="*" />
@@ -176,7 +225,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="chat_subscripcion">
+    <End Role="Chat" Type="Self.Chat" Multiplicity="*" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+  </Association>
   <EntityContainer Name="DBTSI1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Chat" EntityType="Self.Chat" />
+    <EntitySet Name="chat_msg" EntityType="Self.chat_msg" />
     <EntitySet Name="Evento" EntityType="Self.Evento" />
     <EntitySet Name="EventoRelacion" EntityType="Self.EventoRelacion" />
     <EntitySet Name="EventoSubscripcion" EntityType="Self.EventoSubscripcion" />
@@ -185,6 +240,14 @@
     <EntitySet Name="Tipo_Sensor" EntityType="Self.Tipo_Sensor" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" />
     <EntitySet Name="Valores" EntityType="Self.Valores" />
+    <AssociationSet Name="FK__chat_msg__ChatId__6D0D32F4" Association="Self.FK__chat_msg__ChatId__6D0D32F4">
+      <End Role="Chat" EntitySet="Chat" />
+      <End Role="chat_msg" EntitySet="chat_msg" />
+    </AssociationSet>
+    <AssociationSet Name="FK__chat_msg__Usuari__6E01572D" Association="Self.FK__chat_msg__Usuari__6E01572D">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="chat_msg" EntitySet="chat_msg" />
+    </AssociationSet>
     <AssociationSet Name="FK__EventoRel__EvHij__5EBF139D" Association="Self.FK__EventoRel__EvHij__5EBF139D">
       <End Role="Evento" EntitySet="Evento" />
       <End Role="EventoRelacion" EntitySet="EventoRelacion" />
@@ -212,6 +275,10 @@
     <AssociationSet Name="FK__Valores__SensorI__619B8048" Association="Self.FK__Valores__SensorI__619B8048">
       <End Role="Sensores" EntitySet="Sensores" />
       <End Role="Valores" EntitySet="Valores" />
+    </AssociationSet>
+    <AssociationSet Name="chat_subscripcion" Association="Self.chat_subscripcion">
+      <End Role="Chat" EntitySet="Chat" />
+      <End Role="Usuario" EntitySet="Usuario" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
