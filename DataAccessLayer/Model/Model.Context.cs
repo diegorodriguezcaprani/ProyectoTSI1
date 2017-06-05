@@ -25,6 +25,8 @@ namespace DataAccessLayer.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Chat> Chat { get; set; }
+        public virtual DbSet<chat_msg> chat_msg { get; set; }
         public virtual DbSet<Evento> Evento { get; set; }
         public virtual DbSet<EventoRelacion> EventoRelacion { get; set; }
         public virtual DbSet<EventoSubscripcion> EventoSubscripcion { get; set; }

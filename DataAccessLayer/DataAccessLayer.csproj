@@ -50,6 +50,12 @@
   <ItemGroup>
     <Compile Include="DALayer.cs" />
     <Compile Include="IDALayer.cs" />
+    <Compile Include="Model\Chat.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\chat_msg.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Evento.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

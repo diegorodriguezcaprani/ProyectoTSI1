@@ -9,6 +9,8 @@ namespace BusinessLogicLayer
 {
     public interface IBLayer
     {
+        int Login(Login usr);
+
         void AddSensor(Sensores sen);
         void DeleteSensor(int id);
         void UpdateSensor(Sensores sen);

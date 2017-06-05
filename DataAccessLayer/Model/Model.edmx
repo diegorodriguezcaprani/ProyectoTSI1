@@ -5,6 +5,33 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="DBTSI1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="ChatId" />
+          </Key>
+          <Property Name="ChatId" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ChannelName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chat_msg">
+          <Key>
+            <PropertyRef Name="ChatId" />
+            <PropertyRef Name="UsuarioId" />
+            <PropertyRef Name="Fecha" />
+          </Key>
+          <Property Name="ChatId" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Mensaje" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chat_subscripcion">
+          <Key>
+            <PropertyRef Name="ChatId" />
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="ChatId" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Evento">
           <Key>
             <PropertyRef Name="EventoId" />
@@ -83,6 +110,54 @@
           <Property Name="Valor" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
         </EntityType>
+        <Association Name="FK__chat_msg__ChatId__6D0D32F4">
+          <End Role="Chat" Type="Self.Chat" Multiplicity="1" />
+          <End Role="chat_msg" Type="Self.chat_msg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="ChatId" />
+            </Principal>
+            <Dependent Role="chat_msg">
+              <PropertyRef Name="ChatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__chat_msg__Usuari__6E01572D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="chat_msg" Type="Self.chat_msg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="chat_msg">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__chat_subs__ChatI__693CA210">
+          <End Role="Chat" Type="Self.Chat" Multiplicity="1" />
+          <End Role="chat_subscripcion" Type="Self.chat_subscripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="ChatId" />
+            </Principal>
+            <Dependent Role="chat_subscripcion">
+              <PropertyRef Name="ChatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__chat_subs__Usuar__6A30C649">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="chat_subscripcion" Type="Self.chat_subscripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="chat_subscripcion">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__EventoRel__EvHij__5EBF139D">
           <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
           <End Role="EventoRelacion" Type="Self.EventoRelacion" Multiplicity="*" />
@@ -168,6 +243,9 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DBTSI1ModelStoreContainer">
+          <EntitySet Name="Chat" EntityType="Self.Chat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chat_msg" EntityType="Self.chat_msg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chat_subscripcion" EntityType="Self.chat_subscripcion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Evento" EntityType="Self.Evento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventoRelacion" EntityType="Self.EventoRelacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventoSubscripcion" EntityType="Self.EventoSubscripcion" Schema="dbo" store:Type="Tables" />
@@ -176,6 +254,22 @@
           <EntitySet Name="Tipo_Sensor" EntityType="Self.Tipo_Sensor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Valores" EntityType="Self.Valores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__chat_msg__ChatId__6D0D32F4" Association="Self.FK__chat_msg__ChatId__6D0D32F4">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="chat_msg" EntitySet="chat_msg" />
+          </AssociationSet>
+          <AssociationSet Name="FK__chat_msg__Usuari__6E01572D" Association="Self.FK__chat_msg__Usuari__6E01572D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="chat_msg" EntitySet="chat_msg" />
+          </AssociationSet>
+          <AssociationSet Name="FK__chat_subs__ChatI__693CA210" Association="Self.FK__chat_subs__ChatI__693CA210">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="chat_subscripcion" EntitySet="chat_subscripcion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__chat_subs__Usuar__6A30C649" Association="Self.FK__chat_subs__Usuar__6A30C649">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="chat_subscripcion" EntitySet="chat_subscripcion" />
+          </AssociationSet>
           <AssociationSet Name="FK__EventoRel__EvHij__5EBF139D" Association="Self.FK__EventoRel__EvHij__5EBF139D">
             <End Role="Evento" EntitySet="Evento" />
             <End Role="EventoRelacion" EntitySet="EventoRelacion" />
@@ -210,6 +304,29 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBTSI1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Chat">
+          <Key>
+            <PropertyRef Name="ChatId" />
+          </Key>
+          <Property Name="ChatId" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="chat_msg" Relationship="Self.FK__chat_msg__ChatId__6D0D32F4" FromRole="Chat" ToRole="chat_msg" />
+          <NavigationProperty Name="Usuario" Relationship="Self.chat_subscripcion" FromRole="Chat" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="chat_msg">
+          <Key>
+            <PropertyRef Name="ChatId" />
+            <PropertyRef Name="UsuarioId" />
+            <PropertyRef Name="Fecha" />
+          </Key>
+          <Property Name="ChatId" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Chat" Relationship="Self.FK__chat_msg__ChatId__6D0D32F4" FromRole="chat_msg" ToRole="Chat" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__chat_msg__Usuari__6E01572D" FromRole="chat_msg" ToRole="Usuario" />
+        </EntityType>
         <EntityType Name="Evento">
           <Key>
             <PropertyRef Name="EventoId" />
@@ -290,7 +407,9 @@
           <Property Name="Apellido" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TokenId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ChannelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="chat_msg" Relationship="Self.FK__chat_msg__Usuari__6E01572D" FromRole="Usuario" ToRole="chat_msg" />
           <NavigationProperty Name="EventoSubscripcion" Relationship="Self.FK__EventoSub__Usuar__5AEE82B9" FromRole="Usuario" ToRole="EventoSubscripcion" />
+          <NavigationProperty Name="Chat" Relationship="Self.chat_subscripcion" FromRole="Usuario" ToRole="Chat" />
         </EntityType>
         <EntityType Name="Valores">
           <Key>
@@ -302,6 +421,30 @@
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Sensores" Relationship="Self.FK__Valores__SensorI__619B8048" FromRole="Valores" ToRole="Sensores" />
         </EntityType>
+        <Association Name="FK__chat_msg__ChatId__6D0D32F4">
+          <End Role="Chat" Type="Self.Chat" Multiplicity="1" />
+          <End Role="chat_msg" Type="Self.chat_msg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chat">
+              <PropertyRef Name="ChatId" />
+            </Principal>
+            <Dependent Role="chat_msg">
+              <PropertyRef Name="ChatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__chat_msg__Usuari__6E01572D">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="chat_msg" Type="Self.chat_msg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="chat_msg">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__EventoRel__EvHij__5EBF139D">
           <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
           <End Role="EventoRelacion" Type="Self.EventoRelacion" Multiplicity="*" />
@@ -386,7 +529,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="chat_subscripcion">
+          <End Role="Chat" Type="Self.Chat" Multiplicity="*" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="DBTSI1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Chat" EntityType="Self.Chat" />
+          <EntitySet Name="chat_msg" EntityType="Self.chat_msg" />
           <EntitySet Name="Evento" EntityType="Self.Evento" />
           <EntitySet Name="EventoRelacion" EntityType="Self.EventoRelacion" />
           <EntitySet Name="EventoSubscripcion" EntityType="Self.EventoSubscripcion" />
@@ -395,6 +544,14 @@
           <EntitySet Name="Tipo_Sensor" EntityType="Self.Tipo_Sensor" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
           <EntitySet Name="Valores" EntityType="Self.Valores" />
+          <AssociationSet Name="FK__chat_msg__ChatId__6D0D32F4" Association="Self.FK__chat_msg__ChatId__6D0D32F4">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="chat_msg" EntitySet="chat_msg" />
+          </AssociationSet>
+          <AssociationSet Name="FK__chat_msg__Usuari__6E01572D" Association="Self.FK__chat_msg__Usuari__6E01572D">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="chat_msg" EntitySet="chat_msg" />
+          </AssociationSet>
           <AssociationSet Name="FK__EventoRel__EvHij__5EBF139D" Association="Self.FK__EventoRel__EvHij__5EBF139D">
             <End Role="Evento" EntitySet="Evento" />
             <End Role="EventoRelacion" EntitySet="EventoRelacion" />
@@ -423,6 +580,10 @@
             <End Role="Sensores" EntitySet="Sensores" />
             <End Role="Valores" EntitySet="Valores" />
           </AssociationSet>
+          <AssociationSet Name="chat_subscripcion" Association="Self.chat_subscripcion">
+            <End Role="Chat" EntitySet="Chat" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -430,6 +591,25 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DBTSI1ModelStoreContainer" CdmEntityContainer="DBTSI1Entities">
+          <EntitySetMapping Name="Chat">
+            <EntityTypeMapping TypeName="DBTSI1Model.Chat">
+              <MappingFragment StoreEntitySet="Chat">
+                <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ChannelName" ColumnName="ChannelName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chat_msg">
+            <EntityTypeMapping TypeName="DBTSI1Model.chat_msg">
+              <MappingFragment StoreEntitySet="chat_msg">
+                <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Evento">
             <EntityTypeMapping TypeName="DBTSI1Model.Evento">
               <MappingFragment StoreEntitySet="Evento">
@@ -515,6 +695,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="chat_subscripcion" TypeName="DBTSI1Model.chat_subscripcion" StoreEntitySet="chat_subscripcion">
+            <EndProperty Name="Chat">
+              <ScalarProperty Name="ChatId" ColumnName="ChatId" />
+            </EndProperty>
+            <EndProperty Name="Usuario">
+              <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

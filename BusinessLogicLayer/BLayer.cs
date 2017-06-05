@@ -17,6 +17,11 @@ namespace BusinessLogicLayer
             _dal = dal;
         }
 
+        public int Login(Login usr)
+        {
+            return _dal.Login(usr);
+        }
+
         public void AddTipo(TipoSensor sen)
         {
             _dal.AddTipo(sen);
