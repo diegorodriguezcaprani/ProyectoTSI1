@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1bbff435337e449e84b920a7abdec13f" Name="Diagram1">
+      <Diagram DiagramId="b3a8d058e30445eb948a7e7a7ba76b0b" Name="Diagram1">
         <EntityTypeShape EntityType="DBTSI1Model.Chat" Width="1.5" PointX="1.5" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBTSI1Model.chat_msg" Width="1.5" PointX="6" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DBTSI1Model.Evento" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
@@ -15,12 +15,12 @@
         <EntityTypeShape EntityType="DBTSI1Model.Tipo_Sensor" Width="1.5" PointX="5.75" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DBTSI1Model.Usuario" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBTSI1Model.Valores" Width="1.5" PointX="10.25" PointY="9.875" IsExpanded="true" />
-        <AssociationConnector Association="DBTSI1Model.FK__chat_msg__ChatId__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTSI1Model.FK__chat_msg__ChatId__74AE54BC" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__chat_msg__Usuari__6E01572D" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__EventoRel__EvHij__5EBF139D" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__EventoRel__EvPad__5DCAEF64" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__EventoSub__Event__59063A47" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTSI1Model.FK__Historico__Event__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="DBTSI1Model.FK__Historico__Event__70DDC3D8" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__EventoSub__Usuar__5AEE82B9" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__Sensores__Tipo__4CA06362" ManuallyRouted="false" />
         <AssociationConnector Association="DBTSI1Model.FK__Valores__SensorI__619B8048" ManuallyRouted="false" />

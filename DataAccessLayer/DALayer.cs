@@ -13,7 +13,8 @@ namespace DataAccessLayer
         {
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
-                int max = db_context.Usuario.Max(e => e.UsuarioId);
+                int max = (from u in db_context.Usuario
+                          select u).Count();
                 return max;
             }
         }
@@ -32,16 +33,27 @@ namespace DataAccessLayer
             using (Model.DBTSI1Entities db_context = new Model.DBTSI1Entities())
             {
                 var usuario = (from u in db_context.Usuario
-                                         where u.TokenId == usr.TokenId
+                                         where (u.TokenId == usr.TokenId)
                                          select u);
-                if (usuario == null)
+                if (usuario.Count() <= 0)
                 {
                     int id = maxIDUsr()+1;
-                    AddUsuario(new Usuario() {
+                    /*AddUsuario(new Usuario() {
                         Nombre = usr.Nombre,
                         Apellido = usr.Apellido,
                         TokenId = usr.TokenId
-                    });
+                    });*/
+                   
+                    Model.Usuario us = new Model.Usuario()
+                    {
+                        Nombre = usr.Nombre,
+                        Apellido = usr.Apellido,
+                        TokenId = usr.TokenId,
+                        ChannelName = "user-" + id
+                    };
+
+                    db_context.Usuario.Add(us);
+                    db_context.SaveChanges();
                     ResponseFront resp = new ResponseFront()
                     {
                         status = true,
@@ -54,7 +66,7 @@ namespace DataAccessLayer
                     ResponseFront resp = new ResponseFront()
                     {
                         status = true,
-                        valor = ((Model.Usuario)usuario).UsuarioId.ToString()
+                        valor = usuario.First().UsuarioId.ToString()
                     };
                     return resp;
                 }
@@ -786,8 +798,8 @@ namespace DataAccessLayer
                         UsuarioId = subs.UsuarioId,
                         EventoId = subs.EventoId,
                         Radio = subs.Radio,
-                        CentroLatitud = subs.CentroLatitud,
-                        CentroLongitud = subs.CentroLongitud
+                        CentroLatitud = (float)subs.CentroLatitud,
+                        CentroLongitud = (float)subs.CentroLongitud
                     };
 
                     subscripciones.Add(subscripcion);
@@ -814,8 +826,8 @@ namespace DataAccessLayer
                         UsuarioId = subs.UsuarioId,
                         EventoId = subs.EventoId,
                         Radio = subs.Radio,
-                        CentroLatitud = subs.CentroLatitud,
-                        CentroLongitud = subs.CentroLongitud
+                        CentroLatitud = (float)subs.CentroLatitud,
+                        CentroLongitud = (float)subs.CentroLongitud
                     };
 
                     subscripciones.Add(subscripcion);
@@ -842,8 +854,8 @@ namespace DataAccessLayer
                         UsuarioId = subs.UsuarioId,
                         EventoId = subs.EventoId,
                         Radio = subs.Radio,
-                        CentroLatitud = subs.CentroLatitud,
-                        CentroLongitud = subs.CentroLongitud
+                        CentroLatitud = (float)subs.CentroLatitud,
+                        CentroLongitud = (float)subs.CentroLongitud
                     };
 
                     subscripciones.Add(subscripcion);
@@ -867,8 +879,8 @@ namespace DataAccessLayer
                     UsuarioId = subs.UsuarioId,
                     EventoId = subs.EventoId,
                     Radio = subs.Radio,
-                    CentroLongitud = subs.CentroLongitud,
-                    CentroLatitud = subs.CentroLatitud
+                    CentroLongitud = (float)subs.CentroLongitud,
+                    CentroLatitud = (float)subs.CentroLatitud
                 };
 
                 return subscripcion;

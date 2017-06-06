@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="ChatId" />
     </Key>
-    <Property Name="ChatId" Type="int" Nullable="false" />
+    <Property Name="ChatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ChannelName" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
@@ -62,7 +62,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="EventoId" Type="int" Nullable="false" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="ValorCritico" Type="nvarchar(max)" Nullable="false" />
@@ -105,7 +105,7 @@
     <Property Name="Valor" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Fecha" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK__chat_msg__ChatId__6D0D32F4">
+  <Association Name="FK__chat_msg__ChatId__74AE54BC">
     <End Role="Chat" Type="Self.Chat" Multiplicity="1" />
     <End Role="chat_msg" Type="Self.chat_msg" Multiplicity="*" />
     <ReferentialConstraint>
@@ -129,7 +129,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__chat_subs__ChatI__693CA210">
+  <Association Name="FK__chat_subs__ChatI__73BA3083">
     <End Role="Chat" Type="Self.Chat" Multiplicity="1" />
     <End Role="chat_subscripcion" Type="Self.chat_subscripcion" Multiplicity="*" />
     <ReferentialConstraint>
@@ -201,7 +201,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Historico__Event__6477ECF3">
+  <Association Name="FK__Historico__Event__70DDC3D8">
     <End Role="Evento" Type="Self.Evento" Multiplicity="1" />
     <End Role="HistoricoEvento" Type="Self.HistoricoEvento" Multiplicity="*" />
     <ReferentialConstraint>
@@ -249,7 +249,7 @@
     <EntitySet Name="Tipo_Sensor" EntityType="Self.Tipo_Sensor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Valores" EntityType="Self.Valores" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__chat_msg__ChatId__6D0D32F4" Association="Self.FK__chat_msg__ChatId__6D0D32F4">
+    <AssociationSet Name="FK__chat_msg__ChatId__74AE54BC" Association="Self.FK__chat_msg__ChatId__74AE54BC">
       <End Role="Chat" EntitySet="Chat" />
       <End Role="chat_msg" EntitySet="chat_msg" />
     </AssociationSet>
@@ -257,7 +257,7 @@
       <End Role="Usuario" EntitySet="Usuario" />
       <End Role="chat_msg" EntitySet="chat_msg" />
     </AssociationSet>
-    <AssociationSet Name="FK__chat_subs__ChatI__693CA210" Association="Self.FK__chat_subs__ChatI__693CA210">
+    <AssociationSet Name="FK__chat_subs__ChatI__73BA3083" Association="Self.FK__chat_subs__ChatI__73BA3083">
       <End Role="Chat" EntitySet="Chat" />
       <End Role="chat_subscripcion" EntitySet="chat_subscripcion" />
     </AssociationSet>
@@ -281,7 +281,7 @@
       <End Role="Usuario" EntitySet="Usuario" />
       <End Role="EventoSubscripcion" EntitySet="EventoSubscripcion" />
     </AssociationSet>
-    <AssociationSet Name="FK__Historico__Event__6477ECF3" Association="Self.FK__Historico__Event__6477ECF3">
+    <AssociationSet Name="FK__Historico__Event__70DDC3D8" Association="Self.FK__Historico__Event__70DDC3D8">
       <End Role="Evento" EntitySet="Evento" />
       <End Role="HistoricoEvento" EntitySet="HistoricoEvento" />
     </AssociationSet>
